@@ -3,9 +3,24 @@ export const SCREEN = {
     INDEX: "auth",
   },
   CONTAINER: {
-    INDEX: "home",
+    INDEX: "container",
     HOME: {
       INDEX: "home",
+      COURSE: {
+        INDEX: "home-course",
+      },
+      UNIVERSITY: {
+        INDEX: "home-university",
+      },
+      JOB: {
+        INDEX: "home-job",
+      },
+      EXTRACURRICULAR: {
+        INDEX: "home-extracurricular",
+      },
+      MENTOR: {
+        INDEX: "home-mentor"
+      }
     },
     POSTS: {
       INDEX: "posts",

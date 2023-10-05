@@ -8,7 +8,9 @@ import Learn from "./content/learn";
 import Posts from "./content/posts";
 import Account from "./content/account";
 
-import Icon from "../../components/Icon";
+import { IconSvg } from "../../assets/export";
+import { SCREEN } from "../../constants/router";
+import { Text } from "@rneui/base";
 
 const Tab = createBottomTabNavigator();
 const Container: React.FC = () => {
@@ -17,35 +19,46 @@ const Container: React.FC = () => {
     <View style={styles.root}>
       <Tab.Navigator
         screenOptions={{
-          headerShown: false
+          headerShown: false,
+          lazy: true,
+          tabBarStyle: {
+            height:65,
+            paddingTop: 10,
+            paddingBottom: 10,
+          },
         }}
+        initialRouteName={SCREEN.CONTAINER.HOME.INDEX}
       >
         <Tab.Screen 
-          name="HOME" 
+          name={SCREEN.CONTAINER.HOME.INDEX} 
           component={Home}
           options={{
-            tabBarIcon: () => <Icon name="home" color={"red"} size={24} />
+            tabBarIcon: () => IconSvg.IconHome({ height: 30, width: 30 }),
+            title: "Trang chủ",
           }}
         />
         <Tab.Screen 
-          name="POSTS" 
+          name={SCREEN.CONTAINER.POSTS.INDEX}
           component={Posts} 
           options={{
-            tabBarIcon: () => <Icon name="post" color={"red"} size={24} />
+            tabBarIcon: () => IconSvg.IconPost({ height: 30, width: 30 }),
+            title: "Bài viết",
           }}
         />
         <Tab.Screen 
-          name="LEARN" 
+          name={SCREEN.CONTAINER.LEARN.INDEX}
           component={Learn} 
           options={{
-            tabBarIcon: () => <Icon name="lead-pencil" color={"red"} size={24} />
+            tabBarIcon: () => IconSvg.IconStudy({ height: 30, width: 30 }),
+            title: "Học tập",
           }}
         />
         <Tab.Screen 
-          name="ACCOUNT" 
+          name={SCREEN.CONTAINER.ACCOUNT.INDEX}
           component={Account} 
           options={{
-            tabBarIcon: () => <Icon name="account" color={"red"} size={24} />
+            tabBarIcon: () => IconSvg.IconAccount({ height: 30, width: 30 }),
+            title: "Tài khoản",
           }}
         />
       </Tab.Navigator>
