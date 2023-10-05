@@ -1,52 +1,35 @@
-import { Card, Text } from "@rneui/base";
 import React from "react";
-import { ScrollView, View, Dimensions } from "react-native";
+import { ScrollView, View } from "react-native";
+import CardHome, { CardHomeProps } from "./card";
+import { listCard } from "./utils";
 
 const Home: React.FC = () => {
   return (
     <ScrollView
       style={{
         width: "100%",
+        paddingLeft: 10,
+        paddingRight: 10,
       }}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
     >
-      {[1, 2, 3, 4, 5].map((n: number) =>
-        <Card
-          key={n}
-          containerStyle={{
-            height: 150,
-            marginTop: 20,
-            marginBottom: n === 5 ? 20 : 0,
-            backgroundColor: "blue",
-            borderRadius: 8,
-          }}
-        >
-          <View 
-            style={{ 
-              height: "100%", 
+      {
+        listCard.map((c: CardHomeProps, index: number) =>
+          <View
+            style={{
               width: "100%",
-              flexDirection: "row",
-              justifyContent: "flex-start",
-            }}>
-            <View
-              style={{
-                height: "100%",
-                flex: 1,
-                backgroundColor: "gray",
-                borderRadius: 8,
-              }}
-            ></View>
-            <View
-              style={{
-                height: "100%",
-                flex: 3,
-                backgroundColor: "red",
-              }}
-            ></View>
+              marginTop: 20,
+              marginBottom: index === listCard.length - 1 ? 20 : 0,
+            }}
+            key={index}
+          >
+            <CardHome
+              {...c}
+            />
           </View>
-        </Card>
-      )}
+        )
+      }
     </ScrollView>
   )
 }

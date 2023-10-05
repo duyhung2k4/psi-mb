@@ -1,7 +1,9 @@
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-type NameIcon = "home" | "post" | "lead-pencil" | "account";
+export type NameIcon = 
+  | "home" | "post" | "lead-pencil" | "account" | "notebook" | "school" | "briefcase-search"
+  | "hand-heart" | "hand-extended";
 interface IconProps {
   name: NameIcon
   size?: number
