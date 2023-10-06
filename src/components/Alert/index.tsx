@@ -1,8 +1,10 @@
-import { Dialog, Text } from "@rneui/base";
+import { Text } from "@rneui/base";
 import React from "react";
 import { View } from "react-native";
 import ButtonCustom from "../Button";
 import { IconSvg } from "../../assets/export";
+import Modal from "react-native-modal";
+import { styles } from "./styled";
 
 interface AlertCustomProps {
   message: string
@@ -19,32 +21,23 @@ const AlertCustom: React.FC<AlertCustomProps> = (props) => {
   }
 
   return (
-    <Dialog
+    <Modal
       isVisible={props.show}
-      overlayStyle={{
-        backgroundColor: "#FFFFFF",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderRadius: 8,
-        minHeight: 200,
-      }}
       onBackdropPress={props.onClose}
+      animationIn="zoomIn"
+      animationOut="zoomOut"
     >
-      {mapType[props.type]}
-      <Text
-        style={{
-          marginTop: 20,
-          marginBottom: 40,
-        }}
-      >{props.message}</Text>
-      <View style={{ width: "100%" }}>
-        <ButtonCustom
-          onPress={props.onClose}
-          title={"Đóng"}
-        />
+      <View style={styles.root}>
+        {mapType[props.type]}
+        <Text style={styles.mess}>{props.message}</Text>
+        <View style={{ width: "100%" }}>
+          <ButtonCustom
+            onPress={props.onClose}
+            title={"Đóng"}
+          />
+        </View>
       </View>
-    </Dialog>
+    </Modal>
   )
 }
 

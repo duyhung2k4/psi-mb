@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SCREEN } from "../constants/router";
@@ -14,8 +14,7 @@ import MentorHome from "../screen/home/mentor";
 import Register from "../page/auth/register";
 import AcceptCodeRegister from "../page/auth/acceptCodeRegister";
 import Login from "../page/auth/login";
-
-
+import CheckAuth from "../page/checkAuth";
 
 
 const Stack = createNativeStackNavigator();
@@ -27,8 +26,10 @@ const AppRouter: React.FC = () => {
         screenOptions={{
           headerShown: false
         }} 
-        initialRouteName={SCREEN.AUTH.LOGIN.INDEX}
+        initialRouteName={SCREEN.CHECK_AUTH.INDEX}
       >
+        <Stack.Screen name={SCREEN.CHECK_AUTH.INDEX} component={CheckAuth} />
+
         {/* Container */}
         <Stack.Screen name={SCREEN.CONTAINER.INDEX} component={Container} />
 
