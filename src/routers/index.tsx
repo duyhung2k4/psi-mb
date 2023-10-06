@@ -12,6 +12,8 @@ import JobHome from "../screen/home/job";
 import ExtracurricularHome from "../screen/home/extracurricular";
 import MentorHome from "../screen/home/mentor";
 import Register from "../page/auth/register";
+import AcceptCodeRegister from "../page/auth/acceptCodeRegister";
+import Login from "../page/auth/login";
 
 
 
@@ -25,7 +27,7 @@ const AppRouter: React.FC = () => {
         screenOptions={{
           headerShown: false
         }} 
-        initialRouteName={SCREEN.AUTH.REGISTER.INDEX}
+        initialRouteName={SCREEN.AUTH.LOGIN.INDEX}
       >
         {/* Container */}
         <Stack.Screen name={SCREEN.CONTAINER.INDEX} component={Container} />
@@ -38,6 +40,8 @@ const AppRouter: React.FC = () => {
         <Stack.Screen name={SCREEN.CONTAINER.HOME.MENTOR.INDEX} component={MentorHome} />
 
         <Stack.Screen name={SCREEN.AUTH.REGISTER.INDEX} component={Register} />
+        <Stack.Screen name={SCREEN.AUTH.LOGIN.INDEX} component={Login} />
+        <Stack.Screen name={SCREEN.AUTH.ACCEPT_CODE_REGISTER.INDEX} component={AcceptCodeRegister} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -17,6 +17,7 @@ const InputCustom: React.FC<InputProps> = (props) => {
       containerStyle={{
         paddingHorizontal: 0,
       }}
+      autoComplete="off"
     />
   )
 }

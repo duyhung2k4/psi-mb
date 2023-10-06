@@ -10,59 +10,57 @@ import Account from "./content/account";
 
 import { IconSvg } from "../../assets/export";
 import { SCREEN } from "../../constants/router";
-import { Text } from "@rneui/base";
+import OverlayLoading from "../../components/OverlayLoading";
 
 const Tab = createBottomTabNavigator();
 const Container: React.FC = () => {
 
   return (
-    <View style={styles.root}>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          lazy: true,
-          tabBarStyle: {
-            height:65,
-            paddingTop: 10,
-            paddingBottom: 10,
-          },
-        }}
-        initialRouteName={SCREEN.CONTAINER.HOME.INDEX}
-      >
-        <Tab.Screen 
-          name={SCREEN.CONTAINER.HOME.INDEX} 
-          component={Home}
-          options={{
-            tabBarIcon: () => IconSvg.IconHome({ height: 30, width: 30 }),
-            title: "Trang chủ",
+    <OverlayLoading>
+      <View style={styles.root}>
+        <Tab.Navigator
+          screenOptions={{
+            headerShown: false,
+            lazy: true,
+            tabBarStyle: styles.tabbarStyle,
           }}
-        />
-        <Tab.Screen 
-          name={SCREEN.CONTAINER.POSTS.INDEX}
-          component={Posts} 
-          options={{
-            tabBarIcon: () => IconSvg.IconPost({ height: 30, width: 30 }),
-            title: "Bài viết",
-          }}
-        />
-        <Tab.Screen 
-          name={SCREEN.CONTAINER.LEARN.INDEX}
-          component={Learn} 
-          options={{
-            tabBarIcon: () => IconSvg.IconStudy({ height: 30, width: 30 }),
-            title: "Học tập",
-          }}
-        />
-        <Tab.Screen 
-          name={SCREEN.CONTAINER.ACCOUNT.INDEX}
-          component={Account} 
-          options={{
-            tabBarIcon: () => IconSvg.IconAccount({ height: 30, width: 30 }),
-            title: "Tài khoản",
-          }}
-        />
-      </Tab.Navigator>
-    </View>
+          initialRouteName={SCREEN.CONTAINER.HOME.INDEX}
+        >
+          <Tab.Screen
+            name={SCREEN.CONTAINER.HOME.INDEX}
+            component={Home}
+            options={{
+              tabBarIcon: () => IconSvg.IconHome({ height: 30, width: 30 }),
+              title: "Trang chủ",
+            }}
+          />
+          <Tab.Screen
+            name={SCREEN.CONTAINER.POSTS.INDEX}
+            component={Posts}
+            options={{
+              tabBarIcon: () => IconSvg.IconPost({ height: 30, width: 30 }),
+              title: "Bài viết",
+            }}
+          />
+          <Tab.Screen
+            name={SCREEN.CONTAINER.LEARN.INDEX}
+            component={Learn}
+            options={{
+              tabBarIcon: () => IconSvg.IconStudy({ height: 30, width: 30 }),
+              title: "Học tập",
+            }}
+          />
+          <Tab.Screen
+            name={SCREEN.CONTAINER.ACCOUNT.INDEX}
+            component={Account}
+            options={{
+              tabBarIcon: () => IconSvg.IconAccount({ height: 30, width: 30 }),
+              title: "Tài khoản",
+            }}
+          />
+        </Tab.Navigator>
+      </View>
+    </OverlayLoading>
   )
 }
 

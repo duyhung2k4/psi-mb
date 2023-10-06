@@ -1,12 +1,15 @@
-import React from "react";
-import { Dimensions, ScrollView, View } from "react-native";
+import React, { useEffect } from "react";
+import dayjs from "dayjs";
+import * as Yub from "yup";
+import BackgroundAuth from "../background";
 import InputCustom from "../../../components/Input";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import ButtonCustom from "../../../components/Button";
-import { Text } from "@rneui/base";
-import LinearGradient from "react-native-linear-gradient";
-import { useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
-import { Formik } from "formik";
+
+import { View } from "react-native";
+import { Formik, useFormik } from "formik";
 import { SendInfoRegisterPayload } from "../../../payload/auth.payload";
+import { useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
 
 interface FormRegister {
   username: string
@@ -14,6 +17,16 @@ interface FormRegister {
   password: string
   repeatPassword: string
 }
+
+const ErrorRegsiter = Yub.object().shape({
+  username: Yub.string()
+    .min(2, "Tên đăng nhập quá ngắn!")
+    .max(50, "Tên đăng nhập quá dài!")
+    .required("Yêu cầu điền đầy đủ"),
+  email: Yub.string().email("Email không hợp lệ").required("Yêu cầu điền đầy đủ"),
+  password: Yub.string().required("Yêu cầu điền đầy đủ"),
+  repeatPassword: Yub.string().required("Yêu cầu điền đầy đủ"),
+});
 
 const Register: React.FC = () => {
   const [post, { isLoading }] = useSendInfoRegisterMutation();
@@ -25,6 +38,10 @@ const Register: React.FC = () => {
     repeatPassword: "",
   }
 
+  const formik = useFormik({
+    initialValues: initForm,
+    onSubmit: (values) => handlerSubmit(values),
+  });
 
   const handlerSubmit = async (values: FormRegister) => {
     const data: SendInfoRegisterPayload = {
@@ -32,119 +49,70 @@ const Register: React.FC = () => {
       password: values.password,
       email: values.email,
     }
+
     const result = await post(data);
 
-    console.log(result);
+    if ("data" in result) {
+      if (result.data.data === undefined) return;
+
+      const exp = dayjs(result.data.data.timeEnd).toString();
+      const expLocal = dayjs(result.data.data.timeEnd).add(60, "s").toString();
+
+      await AsyncStorage.setItem(
+        "id",
+        JSON.stringify({
+          id: result.data.data?.id || 0,
+          exp,
+          expLocal,
+        }),
+      )
+    }
   }
+
   return (
-    <Formik
-      initialValues={initForm}
-      onSubmit={(values) => handlerSubmit(values)}
+    <BackgroundAuth
+      title="Đăng kí"
     >
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
-        <ScrollView
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-        >
-          <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            colors={["#00c638", "#f3fff1"]}
-            style={{
-              height: 150 + 20,
-              width: "100%",
-              backgroundColor: "#5BB790",
-              marginBottom: -20,
-              padding: 40
-            }}
-          >
-            <Text h2 style={{ color: "#FFFFFF" }}>Đăng kí</Text>
-          </LinearGradient>
-          <View
-            style={{
-              width: "100%",
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              height: Dimensions.get("window").height - 150,
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor: "#FFFFFF",
-              paddingLeft: 30,
-              paddingTop: 50,
-              paddingRight: 30,
-              paddingBottom: 30
-            }}
-          >
-            <View
-              style={{
-                width: "100%",
-                alignItems: "center",
-              }}
-            >
-              <Text h2>PSI 2023</Text>
-            </View>
-            <View style={{ width: "100%" }}>
-              <InputCustom
-                placeholder="Tên đăng nhập"
-                onChangeText={handleChange("username")}
-                onBlur={handleBlur("username")}
-                value={values.username}
-              />
-              <InputCustom
-                placeholder="Email"
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
-              />
-              <InputCustom
-                placeholder="Mật khẩu"
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                secureTextEntry
-              />
-              <InputCustom
-                placeholder="Nhắc lại mật khẩu"
-                onChangeText={handleChange("repeatPassword")}
-                onBlur={handleBlur("repeatPassword")}
-                value={values.repeatPassword}
-                secureTextEntry
-              />
-              <View style={{ width: "100%", marginTop: 50 }}>
-                <ButtonCustom
-                  title={"Đăng kí"}
-                  color={"#00c638"}
-                  onPress={() => handleSubmit()}
-                  loading={isLoading}
-                  disabled={isLoading}
-                />
-              </View>
-            </View>
-            <View
-              style={{
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  marginBottom: 10,
-                  color: "#666666"
-                }}>Được phát triển bởi T4</Text>
-              <Text
-                style={{
-                  color: "#666666"
-                }}
-              >Copyright © 2023. Developed by T4</Text>
-            </View>
-          </View>
-        </ScrollView>
-      )}
-    </Formik>
+      <InputCustom
+        placeholder="Tên đăng nhập"
+        onChangeText={formik.handleChange("username")}
+        onBlur={formik.handleBlur("username")}
+        value={formik.values.username}
+        errorMessage={formik.errors.username && formik.touched.username ? formik.errors.username : undefined}
+      />
+      <InputCustom
+        placeholder="Email"
+        onChangeText={formik.handleChange("email")}
+        onBlur={formik.handleBlur("email")}
+        value={formik.values.email}
+        errorMessage={formik.errors.email && formik.touched.email ? formik.errors.email : undefined}
+      />
+      <InputCustom
+        placeholder="Mật khẩu"
+        onChangeText={formik.handleChange("password")}
+        onBlur={formik.handleBlur("password")}
+        value={formik.values.password}
+        errorMessage={formik.errors.password && formik.touched.password ? formik.errors.password : undefined}
+        secureTextEntry
+      />
+      <InputCustom
+        placeholder="Nhắc lại mật khẩu"
+        onChangeText={formik.handleChange("repeatPassword")}
+        onBlur={formik.handleBlur("repeatPassword")}
+        value={formik.values.repeatPassword}
+        errorMessage={formik.errors.repeatPassword && formik.touched.repeatPassword ? formik.errors.repeatPassword : undefined}
+        secureTextEntry
+      />
+      <View style={{ width: "100%", marginTop: 50 }}>
+        <ButtonCustom
+          title={"Đăng kí"}
+          color={"#00c638"}
+          onPress={() => formik.handleSubmit()}
+          loading={isLoading}
+          disabled={isLoading}
+        />
+      </View>
+    </BackgroundAuth>
   )
 }
 

@@ -15,6 +15,11 @@ export const endPoint = {
       url: "api/v1/access/register/send-code",
       method: "POST",
       header: header.public,
+    }),
+    login: () => ({
+      url: "api/v1/access/login",
+      method: "POST",
+      header: header.public,
     })
   }
 }

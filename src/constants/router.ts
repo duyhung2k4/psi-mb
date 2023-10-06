@@ -3,6 +3,12 @@ export const SCREEN = {
     INDEX: "auth",
     REGISTER: {
       INDEX: "auth-register"
+    },
+    ACCEPT_CODE_REGISTER: {
+      INDEX: "auth-accept-code-register"
+    },
+    LOGIN: {
+      INDEX: "auth-login"
     }
   },
   CONTAINER: {

@@ -2,7 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "../baseQuery";
 import { endPoint } from "../endpoint";
 import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-import { SendInfoRegisterPayload, SendInfoRegisterReponse } from "../../../payload/auth.payload";
+import { LoginPayload, LoginResponse, SendInfoRegisterPayload, SendInfoRegisterReponse } from "../../../payload/auth.payload";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -13,8 +13,16 @@ export const authApi = createApi({
         ...endPoint.auth.sendInfoRegister(),
         data: payload,
       }),
-    })
+    }),
+
+    login: builder.mutation<QueryReturnValue<LoginResponse>, LoginPayload>({
+      query: (payload) => ({
+        ...endPoint.auth.login(),
+        data: payload,
+      })
+    }),
+
   })
 })
 
-export const { useSendInfoRegisterMutation } = authApi;
+export const { useSendInfoRegisterMutation, useLoginMutation } = authApi;

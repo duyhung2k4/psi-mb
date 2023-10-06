@@ -9,6 +9,7 @@ const ButtonCustom: React.FC<ButtonProps> = (props) => {
         width: "100%",
         borderRadius: 8,
       }}
+      color={"#00c638"}
       buttonStyle={{
         paddingTop: 10,
         paddingBottom: 10,

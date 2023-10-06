@@ -2,15 +2,12 @@ import React from "react";
 import { ScrollView, View } from "react-native";
 import CardHome, { CardHomeProps } from "./card";
 import { listCard } from "./utils";
+import { styles } from "./styled";
 
 const Home: React.FC = () => {
   return (
     <ScrollView
-      style={{
-        width: "100%",
-        paddingLeft: 10,
-        paddingRight: 10,
-      }}
+      style={styles.root}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
     >

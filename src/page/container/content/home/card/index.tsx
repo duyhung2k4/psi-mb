@@ -4,6 +4,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { NameIcon } from "../../../../../components/Icon";
 import { Text } from "@rneui/base";
 import { useAppNavigate } from "../../../../../hook/use-app-navigate";
+import { styles } from "./styled";
 
 export interface CardHomeProps {
   iconName: NameIcon
@@ -22,34 +23,17 @@ const CardHome: React.FC<CardHomeProps> = (props) => {
         colors={[props.backgroundColor, "#707070"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={{
-          width: "100%",
-          height: 150,
-          borderRadius: 8,
-          padding: 20,
-        }}
+        style={styles.root}
       >
         <View
-          style={{
-            height: "100%",
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "flex-start",
-          }}>
+          style={styles.content}>
           <View
-            style={{
-              height: "100%",
-              flex: 1,
-              borderRadius: 8,
-            }}
+            style={styles.icon}
           >
             {props.icon}
           </View>
           <View
-            style={{
-              height: "100%",
-              flex: 3,
-            }}
+            style={styles.title}
           >
             <Text h2 style={{ color: "#FFFFFF" }}>{props.title}</Text>
             <Text style={{ color: "#FFFFFF" }}>{props.detail}</Text>

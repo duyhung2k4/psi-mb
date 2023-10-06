@@ -1,6 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 
 export const useAppNavigate = () => {
-  const navigate = useNavigation<any>();
-  return navigate;
+  const navigation = useNavigation<any>();
+  return {
+    navigate: (screen: string) => navigation.navigate(screen)
+  };
 }

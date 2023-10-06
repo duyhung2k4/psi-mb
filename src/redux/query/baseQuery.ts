@@ -1,10 +1,11 @@
+import { BASE_URL } from '@env'
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import axios from 'axios'
 import type { AxiosRequestConfig, AxiosError } from 'axios'
 
 const axiosBaseQuery =
   (
-    { baseUrl }: { baseUrl: string } = { baseUrl: 'https://9505-113-185-51-41.ngrok.io' }
+    { baseUrl }: { baseUrl: string } = { baseUrl: BASE_URL }
   ): BaseQueryFn<
     {
       url: string

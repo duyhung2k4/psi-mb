@@ -1,3 +1,5 @@
+import { ProfileModel } from "../model/profile"
+
 export interface SendInfoRegisterPayload {
   username: string
   password: string
@@ -9,4 +11,14 @@ export interface SendInfoRegisterReponse {
   email: string
   timeStart: string
   timeEnd: string
+}
+
+export interface LoginPayload {
+  username: string
+  password: string
+}
+export interface LoginResponse {
+  accessToken: string,
+  refreshToken: string,
+  profile: ProfileModel
 }
