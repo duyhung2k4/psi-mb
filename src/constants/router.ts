@@ -1,6 +1,9 @@
 export const SCREEN = {
   AUTH: {
     INDEX: "auth",
+    REGISTER: {
+      INDEX: "auth-register"
+    }
   },
   CONTAINER: {
     INDEX: "container",

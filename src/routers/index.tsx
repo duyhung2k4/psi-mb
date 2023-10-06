@@ -2,7 +2,6 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SCREEN } from "../constants/router";
-import Auth from "../page/auth";
 
 import Container from "../page/container";
 
@@ -12,6 +11,7 @@ import UniversityHome from "../screen/home/university";
 import JobHome from "../screen/home/job";
 import ExtracurricularHome from "../screen/home/extracurricular";
 import MentorHome from "../screen/home/mentor";
+import Register from "../page/auth/register";
 
 
 
@@ -25,7 +25,7 @@ const AppRouter: React.FC = () => {
         screenOptions={{
           headerShown: false
         }} 
-        initialRouteName={SCREEN.CONTAINER.INDEX}
+        initialRouteName={SCREEN.AUTH.REGISTER.INDEX}
       >
         {/* Container */}
         <Stack.Screen name={SCREEN.CONTAINER.INDEX} component={Container} />
@@ -37,7 +37,7 @@ const AppRouter: React.FC = () => {
         <Stack.Screen name={SCREEN.CONTAINER.HOME.EXTRACURRICULAR.INDEX} component={ExtracurricularHome} />
         <Stack.Screen name={SCREEN.CONTAINER.HOME.MENTOR.INDEX} component={MentorHome} />
 
-        <Stack.Screen name={SCREEN.AUTH.INDEX} component={Auth} />
+        <Stack.Screen name={SCREEN.AUTH.REGISTER.INDEX} component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   )

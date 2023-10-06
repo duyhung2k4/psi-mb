@@ -5,7 +5,7 @@ import AppRouter from "./routers";
 const Main: React.FC = () => {
   return (
     <SafeAreaProvider>
-      <AppRouter/>
+      <AppRouter />
     </SafeAreaProvider>
   )
 }
