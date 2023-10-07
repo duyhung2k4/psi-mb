@@ -1,4 +1,5 @@
 import { BASE_URL } from '@env'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import axios from 'axios'
 import type { AxiosRequestConfig, AxiosError } from 'axios'
@@ -18,6 +19,11 @@ const axiosBaseQuery =
     unknown
   > =>
   async ({ url, method, data, params, headers }) => {
+    if(headers?.Authorization !== undefined) {
+      const token = await AsyncStorage.getItem("accessToken");
+      headers.Authorization = headers.Authorization + token;
+    }
+
     try {
       console.log(`${baseUrl}/${url}`);
       const result = await axios({

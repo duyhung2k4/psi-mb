@@ -12,11 +12,13 @@ import { IconSvg } from "../../assets/export";
 import { SCREEN } from "../../constants/router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAppNavigate } from "../../hook/use-app-navigate";
+import { useLoginTokenMutation } from "../../redux/query/api/auth";
 
 const Tab = createBottomTabNavigator();
 const Container: React.FC = () => {
-  console.log("Container");
   const navigation = useAppNavigate();
+
+  const [loginToken, { isLoading }] = useLoginTokenMutation();
 
   const checkAuth = async () => {
     const data = await AsyncStorage.getItem("accessToken");
@@ -28,8 +30,24 @@ const Container: React.FC = () => {
   }
 
   useEffect(() => {
+    loginToken(undefined);
     checkAuth();
   }, []);
+
+  if(isLoading) {
+    return (
+      <View
+        style={{ 
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    )
+  }
 
   return (
     <View style={styles.root}>

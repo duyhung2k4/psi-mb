@@ -14,6 +14,7 @@ import DividerCustom from "../../../components/Divider";
 import { useAppNavigate } from "../../../hook/use-app-navigate";
 import { SCREEN } from "../../../constants/router";
 import AlertCustom from "../../../components/Alert";
+import { TemporaryInfo } from "../../../model/temporaryInfo";
 
 interface FormRegister {
   username: string
@@ -70,6 +71,9 @@ const Register: React.FC = () => {
         "id",
         JSON.stringify({
           id: result.data.data?.id || 0,
+          email: formik.values.email,
+          username: formik.values.username,
+          password: formik.values.password,
           exp,
           expLocal,
         }),
@@ -85,7 +89,7 @@ const Register: React.FC = () => {
     const data = await AsyncStorage.getItem("id");
     if(data === null) return;
 
-    const convert = (data as any) as { id: number, exp: string, expLocal: string };
+    const convert = (data as any) as TemporaryInfo;
     if(dayjs(convert.expLocal).isAfter(dayjs())) {
       navigation.navigate(SCREEN.CHECK_AUTH.INDEX);
     } else {

@@ -3,8 +3,14 @@ import { ScrollView, View } from "react-native";
 import CardHome, { CardHomeProps } from "./card";
 import { listCard } from "./utils";
 import { styles } from "./styled";
+import { useAppSelector } from "../../../../redux/hook";
+import { RootState } from "../../../../redux/store";
 
 const Home: React.FC = () => {
+
+  const profile = useAppSelector((state: RootState) => state.auth.profile);
+
+  console.log(profile?.id);
   return (
     <ScrollView
       style={styles.root}

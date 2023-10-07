@@ -29,6 +29,12 @@ export const authApi = createApi({
       })
     }),
 
+    loginToken: builder.mutation<QueryReturnValue<LoginResponse>, undefined>({
+      query: () => ({
+        ...endPoint.auth.loginToken(),
+      })
+    })
+
   })
 })
 
@@ -36,4 +42,5 @@ export const {
   useSendInfoRegisterMutation, 
   useLoginMutation,
   useSendCodeRegisterMutation,
+  useLoginTokenMutation,
 } = authApi;

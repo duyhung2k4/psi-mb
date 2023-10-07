@@ -1,7 +1,11 @@
-const header = {
+const headers = {
   public: {
-    'content-typee': 'application/json',
+    "content-type": "application/json",
   },
+  token: {
+    "content-type": "application/json",
+    "Authorization": `Bearer `
+  }
 }
 
 export const endPoint = {
@@ -9,17 +13,22 @@ export const endPoint = {
     sendInfoRegister: () => ({
       url: "api/v1/access/register/send-info-register",
       method: "POST",
-      header: header.public,
+      headers: headers.public,
     }),
     sendCodeRegister: () => ({
       url: "api/v1/access/register/send-code",
       method: "POST",
-      header: header.public,
+      headers: headers.public,
     }),
     login: () => ({
       url: "api/v1/access/login",
       method: "POST",
-      header: header.public,
+      headers: headers.public,
+    }),
+    loginToken: () => ({
+      url: "api/v1/access-protected/login-token",
+      method: "POST",
+      headers: headers.token,
     })
   }
 }

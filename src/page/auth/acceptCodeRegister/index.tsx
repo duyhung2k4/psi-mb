@@ -14,8 +14,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
 import { useAppNavigate } from "../../../hook/use-app-navigate";
 import { SCREEN } from "../../../constants/router";
-import { useSendCodeRegisterMutation } from "../../../redux/query/api/auth";
+import { useSendCodeRegisterMutation, useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
 import AlertCustom from "../../../components/Alert";
+import { TemporaryInfo } from "../../../model/temporaryInfo";
 
 const AcceptCodeRegister: React.FC = () => {
   const [code, setCode] = useState("");
@@ -28,7 +29,8 @@ const AcceptCodeRegister: React.FC = () => {
 
   const navigation = useAppNavigate();
 
-  const [post, { isLoading }] = useSendCodeRegisterMutation();
+  const [ post, { isLoading } ] = useSendCodeRegisterMutation();
+  const [ postRepeatCode, { isLoading: isLoadingRepeatCode } ] = useSendInfoRegisterMutation();
 
   const ref = useBlurOnFulfill({ value: code, cellCount: 6 });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -43,7 +45,7 @@ const AcceptCodeRegister: React.FC = () => {
       return;
     }
     
-    const convert = JSON.parse(data) as { id: number, exp: string };
+    const convert = JSON.parse(data) as TemporaryInfo;
 
     const time = dayjs(convert.exp).diff(dayjs(), "s");
     setTime(time);
@@ -64,7 +66,7 @@ const AcceptCodeRegister: React.FC = () => {
       });
       return;
     }
-    const convert = JSON.parse(data) as { id: number, exp: string, expLocal: string };
+    const convert = JSON.parse(data) as TemporaryInfo;
     const result = await post({ idTemporaryCredential: convert.id, code });
 
     if("data" in result) {
@@ -77,6 +79,51 @@ const AcceptCodeRegister: React.FC = () => {
       setAlert({
         type: "error",
         message: "Mã đăng nhập không đúng",
+        show: true,
+      })
+    }
+  }
+
+  const repeatCode = async () => {
+    const data = await AsyncStorage.getItem("id");
+    if(data === null) {
+      setAlert({
+        type: "error",
+        message: "Mã đăng nhập hết hạn",
+        show: true,
+      });
+      return;
+    }
+    const convert = JSON.parse(data) as TemporaryInfo;
+    const result = await postRepeatCode({ 
+      username: convert.username,
+      password: convert.password,
+      email: convert.email,
+    });
+
+    if("data" in result) {
+      if (result.data.data === undefined) return;
+
+      const exp = dayjs(result.data.data.timeEnd).toString();
+      const expLocal = dayjs(result.data.data.timeEnd).add(60, "s").toString();
+
+      const _ = await AsyncStorage.setItem(
+        "id",
+        JSON.stringify({
+          id: result.data.data?.id || 0,
+          email: convert.email,
+          username: convert.username,
+          password: convert.password,
+          exp,
+          expLocal,
+        }),
+      );
+
+      getTimeSaveId();
+    } else {
+      setAlert({
+        type: "error",
+        message: "Gửi lại mã thất bại",
         show: true,
       })
     }
@@ -150,11 +197,14 @@ const AcceptCodeRegister: React.FC = () => {
                 <ButtonCustom
                   title={"Hủy"}
                   color={"error"}
+                  disabled={isLoadingRepeatCode}
                   onPress={() => removeId()}
                 />
               </View>
               <View style={{ flex: 5, marginLeft: 10, }}>
                 <ButtonCustom
+                  onPress={() => repeatCode()}
+                  loading={isLoadingRepeatCode}
                   title={"Gửi lại mã"}
                 />
               </View>
