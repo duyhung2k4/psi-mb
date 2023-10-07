@@ -1,16 +1,21 @@
 import { Text } from "@rneui/base";
 import React from "react";
 import { View } from "react-native";
-import { IconSvg } from "../../assets/export";
 
-const TypeCourseCard: React.FC = () => {
+export interface TypeCourseCardProps {
+  title: string
+  icon: React.ReactNode
+  color: string
+  screen: string
+}
+const TypeCourseCard: React.FC<TypeCourseCardProps> = (props) => {
   return (
     <View
       style={{
         width: "100%",
         height: "100%",
         borderRadius: 8,
-        backgroundColor: "gray",
+        backgroundColor: props.color,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
@@ -18,8 +23,8 @@ const TypeCourseCard: React.FC = () => {
         paddingTop: 20,
       }}
     >
-      <IconSvg.IconSkill height={100} width={100} />
-      <Text h3 style={{ color: "#FFFFFF", marginTop: 10 }}>Kĩ năng</Text>
+      {props.icon}
+      <Text h3 style={{ color: "#FFFFFF", marginTop: 10 }}>{props.title}</Text>
     </View>
   )
 }

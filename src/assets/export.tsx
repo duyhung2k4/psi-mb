@@ -13,6 +13,9 @@ import IconAccount from "./icon/account.svg";
 
 // Icon Type Course
 import IconSkill from "./icon/skill.svg";
+import IconDesk from "./icon/desk.svg";
+import IconDepartment from "./icon/department.svg";
+import IconLanguage from "./icon/language.svg";
 
 // Alert
 import IconSuccess from "./icon/success.svg";
@@ -34,6 +37,9 @@ export const IconSvg = {
   IconAccount: (props: IconPropsSvg) => IconAccount({ height: props.height || 70, width: props.width || 70 }),
 
   IconSkill: (props: IconPropsSvg) => IconSkill({ height: props.height || 70, width: props.width || 70 }),
+  IconDesk: (props: IconPropsSvg) => IconDesk({ height: props.height || 70, width: props.width || 70 }),
+  IconDepartment: (props: IconPropsSvg) => IconDepartment({ height: props.height || 70, width: props.width || 70 }),
+  IconLanguage: (props: IconPropsSvg) => IconLanguage({ height: props.height || 70, width: props.width || 70 }),
 
   IconSuccess: (props: IconPropsSvg) => IconSuccess({ height: props.height || 70, width: props.width || 70 }),
   IconWarning: (props: IconPropsSvg) => IconWarning({ height: props.height || 70, width: props.width || 70 }),

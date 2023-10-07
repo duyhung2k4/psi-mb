@@ -1,52 +1,66 @@
 import React from "react";
-import { View, Dimensions, ScrollView } from "react-native";
-import TypeCourseCard from "../../../components/TypeCourseCard";
+import { View, Dimensions, Pressable } from "react-native";
+import TypeCourseCard, { TypeCourseCardProps } from "../../../components/TypeCourseCard";
 import OverlayLoading from "../../../components/OverlayLoading";
+import { listTypeCouse } from "./utils";
+import { arrayTowWay } from "../../../utils/array";
+import DividerCustom from "../../../components/Divider";
+import OverlayHeader from "../../../components/OverlayHeader";
+import { useAppNavigate } from "../../../hook/use-app-navigate";
 
 const CourseHome: React.FC = () => {
+  const listTowWay: TypeCourseCardProps[][] = arrayTowWay<TypeCourseCardProps>(listTypeCouse);
+
+  const navigation = useAppNavigate();
+
   return (
     <OverlayLoading>
-      <ScrollView
-        style={{
-          height: "100%",
-          width: "100%",
-          padding: 10,
-        }}
-      >
-        {
-          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) =>
-            <View
-              key={n}
-              style={{
-                width: "100%",
-                flex: 1,
-                flexDirection: "row"
-              }}
-            >
+      <OverlayHeader>
+        <View
+          style={{
+            width: "100%",
+            height: "auto",
+            padding: 10,
+          }}
+        >
+          {
+            listTowWay.map((d, index: number) =>
               <View
+                key={index}
                 style={{
-                  height: Dimensions.get("window").width / 2,
-                  width: "50%",
-                  padding: 10,
-                  flex: 2,
+                  width: "100%",
+                  flex: 1,
+                  flexDirection: "row",
                 }}
               >
-                <TypeCourseCard />
+                {
+                  d.map((c, i: number) =>
+                    <View
+                      key={i}
+                      style={{
+                        height: Dimensions.get("window").width / 2,
+                        width: "50%",
+                        padding: 10,
+                        flex: 2,
+                      }}
+                    >
+                      <Pressable onPress={() => navigation.navigate(c.screen, { id: i })}>
+                        {
+                          c !== undefined &&
+                          <TypeCourseCard
+                            {...c}
+                          />
+                        }
+                      </Pressable>
+                    </View>
+                  )
+                }
               </View>
-              <View
-                style={{
-                  height: Dimensions.get("window").width / 2,
-                  width: "50%",
-                  padding: 10,
-                  flex: 2,
-                }}
-              >
-                <TypeCourseCard />
-              </View>
-            </View>
-          )
-        }
-      </ScrollView>
+            )
+          }
+          <DividerCustom title="Các khóa học đề xuất" />
+        </View>
+      </OverlayHeader>
     </OverlayLoading>
   )
 }

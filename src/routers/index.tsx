@@ -1,20 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SCREEN } from "../constants/router";
 
 import Container from "../page/container";
 
-// Home
-import CourseHome from "../screen/home/course";
-import UniversityHome from "../screen/home/university";
-import JobHome from "../screen/home/job";
-import ExtracurricularHome from "../screen/home/extracurricular";
-import MentorHome from "../screen/home/mentor";
+// Auth
 import Register from "../page/auth/register";
 import AcceptCodeRegister from "../page/auth/acceptCodeRegister";
 import Login from "../page/auth/login";
 import CheckAuth from "../page/checkAuth";
+
+// Home
+// Home - Course
+import CourseHome from "../screen/home/course";
+import CourseHomePractice from "../screen/home/course/Practice";
+import CourseHomeMajor from "../screen/home/course/Major";
+import CourseHomeSkill from "../screen/home/course/Skill";
+import CourseHomeLanguage from "../screen/home/course/Language";
+// Home - Mentor
+import MentorHome from "../screen/home/mentor";
+// Home - University
+import UniversityHome from "../screen/home/university";
+// Home - Job
+import JobHome from "../screen/home/job";
+// Home - Extracurricular
+import ExtracurricularHome from "../screen/home/extracurricular";
 
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +46,11 @@ const AppRouter: React.FC = () => {
 
         {/* Container - Home */}
         <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.INDEX} component={CourseHome} />
+        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.PRACTICE.INDEX} component={CourseHomePractice} />
+        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.MAJOR.INDEX} component={CourseHomeMajor} />
+        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.SKILL.INDEX} component={CourseHomeSkill} />
+        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.LAGUAGE.INDEX} component={CourseHomeLanguage} />
+
         <Stack.Screen name={SCREEN.CONTAINER.HOME.UNIVERSITY.INDEX} component={UniversityHome} />
         <Stack.Screen name={SCREEN.CONTAINER.HOME.JOB.INDEX} component={JobHome} />
         <Stack.Screen name={SCREEN.CONTAINER.HOME.EXTRACURRICULAR.INDEX} component={ExtracurricularHome} />

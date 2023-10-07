@@ -18,6 +18,7 @@ const OverlayLoading: React.FC<OverlayLoadingProps> = (props) => {
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "#FFFFFF",
       }}
     >
       {

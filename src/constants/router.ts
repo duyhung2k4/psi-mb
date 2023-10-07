@@ -20,6 +20,18 @@ export const SCREEN = {
       INDEX: "home",
       COURSE: {
         INDEX: "home-course",
+        PRACTICE: {
+          INDEX: "home-course-practice",
+        },
+        MAJOR: {
+          INDEX: "home-course-major",
+        },
+        LAGUAGE: {
+          INDEX: "home-course-language",
+        },
+        SKILL: {
+          INDEX: "home-course-skill",
+        }
       },
       UNIVERSITY: {
         INDEX: "home-university",
