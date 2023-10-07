@@ -90,6 +90,7 @@ const Login: React.FC = () => {
             title={"Tạo tài khoản mới"}
             color={"#00c638"}
             disabled={isLoading}
+            onPress={() => navigation.navigate(SCREEN.AUTH.REGISTER.INDEX)}
           />
         </View>
       </BackgroundAuth>

@@ -15,6 +15,7 @@ import { useAppNavigate } from "../../hook/use-app-navigate";
 
 const Tab = createBottomTabNavigator();
 const Container: React.FC = () => {
+  console.log("Container");
   const navigation = useAppNavigate();
 
   const checkAuth = async () => {

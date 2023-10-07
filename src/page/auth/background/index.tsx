@@ -23,6 +23,7 @@ const BackgroundAuth: React.FC<BackgroundAuthProps> = (props) => {
       >
         <Text h2 style={{ color: "#FFFFFF" }}>{props.title}</Text>
       </LinearGradient>
+      
       <View
         style={styles.form}
       >

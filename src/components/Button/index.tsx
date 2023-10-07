@@ -4,12 +4,12 @@ import { Button, ButtonProps } from "@rneui/base";
 const ButtonCustom: React.FC<ButtonProps> = (props) => {
   return (
     <Button
-      {...props}
       style={{
         width: "100%",
         borderRadius: 8,
       }}
       color={"#00c638"}
+      {...props}
       buttonStyle={{
         paddingTop: 10,
         paddingBottom: 10,

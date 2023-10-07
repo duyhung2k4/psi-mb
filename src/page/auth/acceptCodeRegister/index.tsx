@@ -3,41 +3,95 @@ import BackgroundAuth from "../background";
 import { Text } from "@rneui/base";
 import { View } from "react-native";
 import ButtonCustom from "../../../components/Button";
-import { 
-  CodeField, 
+import {
+  CodeField,
   Cursor,
-  useClearByFocusCell, 
+  useClearByFocusCell,
   useBlurOnFulfill,
 } from "react-native-confirmation-code-field";
 import { styles } from "./styled";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
+import { useAppNavigate } from "../../../hook/use-app-navigate";
+import { SCREEN } from "../../../constants/router";
+import { useSendCodeRegisterMutation } from "../../../redux/query/api/auth";
+import AlertCustom from "../../../components/Alert";
 
 const AcceptCodeRegister: React.FC = () => {
+  const [code, setCode] = useState("");
+  const [time, setTime] = useState<number | null>(null);
+  const [alert, setAlert] = useState<{
+    type: "success" | "error" | "warning",
+    message: string,
+    show: boolean,
+  }>({ type: "success", message: "", show: false })
 
-  const [value, setValue] = useState('');
-  const [time, setTime] = useState<number>(0);
+  const navigation = useAppNavigate();
 
-  const ref = useBlurOnFulfill({value, cellCount: 6});
+  const [post, { isLoading }] = useSendCodeRegisterMutation();
+
+  const ref = useBlurOnFulfill({ value: code, cellCount: 6 });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-    value,
-    setValue,
+    value: code,
+    setValue: setCode,
   });
 
   const getTimeSaveId = async () => {
     const data = await AsyncStorage.getItem("id");
-    if(data === null) return;
+    if (data === null) {
+      setTime(0);
+      return;
+    }
+    
     const convert = JSON.parse(data) as { id: number, exp: string };
 
     const time = dayjs(convert.exp).diff(dayjs(), "s");
     setTime(time);
   }
 
-  useEffect(() => {   
-    if(time < 0) return;
+  const removeId = async () => {
+    const _ = await AsyncStorage.removeItem("id");
+    navigation.navigate(SCREEN.AUTH.REGISTER.INDEX);
+  }
+
+  const sendCode = async () => {
+    const data = await AsyncStorage.getItem("id");
+    if(data === null) {
+      setAlert({
+        type: "error",
+        message: "Mã đăng nhập hết hạn",
+        show: true,
+      });
+      return;
+    }
+    const convert = JSON.parse(data) as { id: number, exp: string, expLocal: string };
+    const result = await post({ idTemporaryCredential: convert.id, code });
+
+    if("data" in result) {
+      setAlert({
+        type: "success",
+        message: "Đăng kí tài khoản thành công",
+        show: true,
+      })
+    } else {
+      setAlert({
+        type: "error",
+        message: "Mã đăng nhập không đúng",
+        show: true,
+      })
+    }
+  }
+  
+  useEffect(() => {
+    getTimeSaveId();
+  }, []);
+
+  useEffect(() => {
+    if (time === null) return;
+    if (time < 0) return;
 
     const countTime = setInterval(() => {
-      setTime(time - 1);
+      getTimeSaveId();
     }, 1000);
 
     return () => {
@@ -45,44 +99,105 @@ const AcceptCodeRegister: React.FC = () => {
     }
   }, [time]);
 
-  useEffect(() => {
-    getTimeSaveId();
-  }, [])
-
   return (
     <BackgroundAuth
       title="Nhập mã xác nhận"
     >
       <View style={{ width: "100%", alignItems: "center" }}>
-        <Text style={{ fontSize: 20 }}>Mã xác nhận hết hạn sau</Text>
-        <Text style={{ fontSize: 16 }}>({time > 0 ? time : 0}) giây</Text>
 
-        <CodeField
-          ref={ref}
-          {...props}
-          value={value}
-          onChangeText={setValue}
-          cellCount={6}
-          keyboardType="number-pad"
-          textContentType="oneTimeCode"
-          rootStyle={styles.codeFieldRoot}
-          renderCell={({ index, symbol, isFocused }) => (
-            <Text
-              key={index}
-              style={[styles.cell, isFocused && styles.focusCell]}
-              onLayout={getCellOnLayoutHandler(index)}>
-              {symbol || (isFocused ? <Cursor /> : null)}
-            </Text>
-          )}
-        />
+        {
+          time !== null && time <= 0 ?
+            <Text style={{ fontSize: 20, color: "red" }}>Mã xác nhận đã hết hạn</Text>
+            :
+            <View style={{ width: "100%", alignItems: "center" }}>
+              <Text style={{ fontSize: 20 }}>Mã xác nhận hết hạn sau</Text>
+              <Text style={{ fontSize: 16 }}>({time === null ? 0 : (time > 0 ? time : 0)}) giây</Text>
+            </View>
+        }
 
-        <View style={{ width: "100%", marginTop: 100 }}>
-          <ButtonCustom
-            title={"Xác nhận"}
-            disabled={value.length === 6 ? false : true}
+        {
+          (time !== null && time > 0) &&
+          <CodeField
+            ref={ref}
+            {...props}
+            value={code}
+            onChangeText={setCode}
+            cellCount={6}
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            rootStyle={styles.codeFieldRoot}
+            renderCell={({ index, symbol, isFocused }) => (
+              <Text
+                key={index}
+                style={[styles.cell, isFocused && styles.focusCell]}
+                onLayout={getCellOnLayoutHandler(index)}>
+                {symbol || (isFocused ? <Cursor /> : null)}
+              </Text>
+            )}
           />
-        </View>
+        }
+
+        {
+          time !== null && time <= 0 ?
+            <View
+              style={{
+                flexDirection: "row",
+                alignContent: "space-between",
+                marginTop: 100,
+              }}
+            >
+              <View style={{ flex: 5, marginRight: 10, }}>
+                <ButtonCustom
+                  title={"Hủy"}
+                  color={"error"}
+                  onPress={() => removeId()}
+                />
+              </View>
+              <View style={{ flex: 5, marginLeft: 10, }}>
+                <ButtonCustom
+                  title={"Gửi lại mã"}
+                />
+              </View>
+            </View>
+            :
+            <View
+              style={{
+                flexDirection: "row",
+                alignContent: "space-between",
+                marginTop: 100,
+              }}
+            >
+              <View style={{ flex: 5, marginRight: 10, }}>
+                <ButtonCustom
+                  title={"Hủy"}
+                  color={"error"}
+                  disabled={isLoading}
+                  onPress={() => removeId()}
+                />
+              </View>
+              <View style={{ flex: 5, marginRight: 10, }}>
+                <ButtonCustom
+                  title={"Xác nhận"}
+                  disabled={code.length === 6 ? false : true}
+                  loading={isLoading}
+                  onPress={() => sendCode()}
+                />
+              </View>
+            </View>
+        }
       </View>
+
+      <AlertCustom
+        show={alert.show}
+        type={alert.type}
+        message={alert.message}
+        onClose={() => {
+          if(alert.type === "success") {
+            navigation.navigate(SCREEN.AUTH.LOGIN.INDEX);
+          }
+          setAlert({ type: "success", message: "", show: false });
+        }}
+      />
     </BackgroundAuth>
   )
 }

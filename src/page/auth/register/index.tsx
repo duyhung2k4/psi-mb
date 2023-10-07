@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import * as Yub from "yup";
 import BackgroundAuth from "../background";
@@ -10,6 +10,10 @@ import { View } from "react-native";
 import { Formik, useFormik } from "formik";
 import { SendInfoRegisterPayload } from "../../../payload/auth.payload";
 import { useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
+import DividerCustom from "../../../components/Divider";
+import { useAppNavigate } from "../../../hook/use-app-navigate";
+import { SCREEN } from "../../../constants/router";
+import AlertCustom from "../../../components/Alert";
 
 interface FormRegister {
   username: string
@@ -30,6 +34,9 @@ const ErrorRegsiter = Yub.object().shape({
 
 const Register: React.FC = () => {
   const [post, { isLoading }] = useSendInfoRegisterMutation();
+  const [alert, setAlert] = useState<boolean>(false);
+
+  const navigation = useAppNavigate();
 
   const initForm: FormRegister = {
     username: "",
@@ -41,6 +48,7 @@ const Register: React.FC = () => {
   const formik = useFormik({
     initialValues: initForm,
     onSubmit: (values) => handlerSubmit(values),
+    validationSchema: ErrorRegsiter
   });
 
   const handlerSubmit = async (values: FormRegister) => {
@@ -58,7 +66,7 @@ const Register: React.FC = () => {
       const exp = dayjs(result.data.data.timeEnd).toString();
       const expLocal = dayjs(result.data.data.timeEnd).add(60, "s").toString();
 
-      await AsyncStorage.setItem(
+      const _ = await AsyncStorage.setItem(
         "id",
         JSON.stringify({
           id: result.data.data?.id || 0,
@@ -66,8 +74,28 @@ const Register: React.FC = () => {
           expLocal,
         }),
       )
+
+      navigation.navigate(SCREEN.AUTH.ACCEPT_CODE_REGISTER.INDEX);
+    } else {
+      setAlert(true);
     }
   }
+
+  const checkExistId = async () => {
+    const data = await AsyncStorage.getItem("id");
+    if(data === null) return;
+
+    const convert = (data as any) as { id: number, exp: string, expLocal: string };
+    if(dayjs(convert.expLocal).isAfter(dayjs())) {
+      navigation.navigate(SCREEN.CHECK_AUTH.INDEX);
+    } else {
+      await AsyncStorage.removeItem("id");
+    }
+  }
+
+  useEffect(() => {
+    checkExistId();
+  }, []);
 
   return (
     <BackgroundAuth
@@ -103,7 +131,7 @@ const Register: React.FC = () => {
         errorMessage={formik.errors.repeatPassword && formik.touched.repeatPassword ? formik.errors.repeatPassword : undefined}
         secureTextEntry
       />
-      <View style={{ width: "100%", marginTop: 50 }}>
+      <View style={{ width: "100%", marginTop: 20 }}>
         <ButtonCustom
           title={"Đăng kí"}
           color={"#00c638"}
@@ -112,6 +140,29 @@ const Register: React.FC = () => {
           disabled={isLoading}
         />
       </View>
+
+      <DividerCustom 
+        title="Bạn đã có tài khoản" 
+        style={{
+          marginTop: 20,
+          marginBottom: 20,
+        }}
+      />
+
+      <View style={{ width: "100%" }}>
+        <ButtonCustom
+          title={"Đăng nhập"}
+          color={"#00c638"}
+          onPress={() => navigation.navigate(SCREEN.AUTH.LOGIN.INDEX)}
+          disabled={isLoading}
+        />
+      </View>
+      <AlertCustom
+        type="error"
+        show={alert}
+        message="Email hoặc tên đăng nhập đã tồn tại"
+        onClose={() => setAlert(false)}
+      />
     </BackgroundAuth>
   )
 }

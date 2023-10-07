@@ -11,7 +11,7 @@ export const endPoint = {
       method: "POST",
       header: header.public,
     }),
-    sendCode: () => ({
+    sendCodeRegister: () => ({
       url: "api/v1/access/register/send-code",
       method: "POST",
       header: header.public,

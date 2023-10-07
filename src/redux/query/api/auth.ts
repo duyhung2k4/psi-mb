@@ -15,6 +15,13 @@ export const authApi = createApi({
       }),
     }),
 
+    sendCodeRegister: builder.mutation<QueryReturnValue, { idTemporaryCredential: number, code: string }>({
+      query: (payload) => ({
+        ...endPoint.auth.sendCodeRegister(),
+        data: payload,
+      })
+    }),
+
     login: builder.mutation<QueryReturnValue<LoginResponse>, LoginPayload>({
       query: (payload) => ({
         ...endPoint.auth.login(),
@@ -25,4 +32,8 @@ export const authApi = createApi({
   })
 })
 
-export const { useSendInfoRegisterMutation, useLoginMutation } = authApi;
+export const { 
+  useSendInfoRegisterMutation, 
+  useLoginMutation,
+  useSendCodeRegisterMutation,
+} = authApi;

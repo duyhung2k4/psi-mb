@@ -24,6 +24,6 @@ export const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingTop: 50,
     paddingRight: 30,
-    paddingBottom: 30
+    paddingBottom: 10
   }
 })
