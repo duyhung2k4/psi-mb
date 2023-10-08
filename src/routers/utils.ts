@@ -1,7 +1,5 @@
-import { BottomTabNavigationProp, BottomTabScreenProps } from "@react-navigation/bottom-tabs"
-import { CompositeNavigationProp } from "@react-navigation/native"
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { StackNavigationProp } from "@react-navigation/stack"
 
 // <===========================Param List========================>
 

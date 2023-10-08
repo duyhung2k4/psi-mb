@@ -46,7 +46,9 @@ const CourseHome: React.FC = () => {
                         flex: 2,
                       }}
                     >
-                      <Pressable onPress={() => navigation.navigate(c.screen)}>
+                      <Pressable
+                        onPress={() => navigation.navigate(c.screen)}
+                      >
                         {
                           c !== undefined &&
                           <TypeCourseCard
