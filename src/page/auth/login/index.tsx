@@ -11,8 +11,7 @@ import { useFormik } from "formik";
 import { View } from "react-native";
 import { LoginPayload } from "../../../payload/auth.payload";
 import { useLoginMutation } from "../../../redux/query/api/auth";
-import { useAppNavigate } from "../../../hook/use-app-navigate";
-import { SCREEN } from "../../../constants/router";
+import { LoginProps } from "../../../routers/utils";
 
 const ErrorLogin = Yub.object().shape({
   username: Yub.string()
@@ -20,10 +19,9 @@ const ErrorLogin = Yub.object().shape({
   password: Yub.string().required("Yêu cầu điền đầy đủ"),
 });
 
-const Login: React.FC = () => {
+const Login: React.FC<LoginProps> = ({ navigation, route }) => {
 
   const [alert, setAlert] = useState<boolean>(false);
-  const navigation = useAppNavigate();
 
   const initialValues: LoginPayload = {
     username: "",
@@ -32,20 +30,20 @@ const Login: React.FC = () => {
 
   const formik = useFormik({
     initialValues,
-    onSubmit: (value) => handlerSubmid(value),
+    onSubmit: (value) => handlerSubmit(value),
     validationSchema: ErrorLogin,
   });
 
   const [post, { isLoading }] = useLoginMutation();
 
-  const handlerSubmid = async (values: LoginPayload) => {
+  const handlerSubmit = async (values: LoginPayload) => {
     const result = await post(values);
 
     if ("data" in result) {
       if (result.data.data === undefined) return;
       const accessToken = result.data.data.accessToken;
-      await AsyncStorage.setItem("accessToken", accessToken);
-      navigation.navigate(SCREEN.CONTAINER.INDEX);
+      const _ = await AsyncStorage.setItem("accessToken", accessToken);
+      navigation.navigate("Container");
     } else {
       setAlert(true);
     }
@@ -90,7 +88,7 @@ const Login: React.FC = () => {
             title={"Tạo tài khoản mới"}
             color={"#00c638"}
             disabled={isLoading}
-            onPress={() => navigation.navigate(SCREEN.AUTH.REGISTER.INDEX)}
+            onPress={() => navigation.navigate("Register")}
           />
         </View>
       </BackgroundAuth>

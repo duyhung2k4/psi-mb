@@ -1,6 +1,6 @@
 export const SCREEN = {
   CHECK_AUTH: {
-    INDEX: "check-auth"
+    INDEX: "CheckAuth"
   },
   AUTH: {
     INDEX: "auth",

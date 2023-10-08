@@ -1,17 +1,19 @@
 import React from "react";
-import { View, Dimensions, Pressable } from "react-native";
-import TypeCourseCard, { TypeCourseCardProps } from "../../../components/TypeCourseCard";
-import OverlayLoading from "../../../components/OverlayLoading";
-import { listTypeCouse } from "./utils";
-import { arrayTowWay } from "../../../utils/array";
 import DividerCustom from "../../../components/Divider";
 import OverlayHeader from "../../../components/OverlayHeader";
-import { useAppNavigate } from "../../../hook/use-app-navigate";
+import TypeCourseCard, { TypeCourseCardProps } from "../../../components/TypeCourseCard";
+import OverlayLoading from "../../../components/OverlayLoading";
+
+import { listTypeCouse } from "./utils";
+import { View, Dimensions, Pressable } from "react-native";
+import { arrayTowWay } from "../../../utils/array";
+import { CourseHomeProps, StackParamList } from "../../../routers/utils";
+import { RouteProp, useNavigation, useRoute, NavigationProp } from "@react-navigation/native";
 
 const CourseHome: React.FC = () => {
   const listTowWay: TypeCourseCardProps[][] = arrayTowWay<TypeCourseCardProps>(listTypeCouse);
 
-  const navigation = useAppNavigate();
+  const navigation = useNavigation<NavigationProp<StackParamList, "CourseHome">>();  
 
   return (
     <OverlayLoading>
@@ -44,7 +46,7 @@ const CourseHome: React.FC = () => {
                         flex: 2,
                       }}
                     >
-                      <Pressable onPress={() => navigation.navigate(c.screen, { id: i })}>
+                      <Pressable onPress={() => navigation.navigate(c.screen)}>
                         {
                           c !== undefined &&
                           <TypeCourseCard

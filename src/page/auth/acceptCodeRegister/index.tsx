@@ -12,13 +12,12 @@ import {
 import { styles } from "./styled";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
-import { useAppNavigate } from "../../../hook/use-app-navigate";
-import { SCREEN } from "../../../constants/router";
 import { useSendCodeRegisterMutation, useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
 import AlertCustom from "../../../components/Alert";
 import { TemporaryInfo } from "../../../model/temporaryInfo";
+import { AcceptCodeRegisterProps } from "../../../routers/utils";
 
-const AcceptCodeRegister: React.FC = () => {
+const AcceptCodeRegister: React.FC<AcceptCodeRegisterProps> = ({ navigation, route }) => {
   const [code, setCode] = useState("");
   const [time, setTime] = useState<number | null>(null);
   const [alert, setAlert] = useState<{
@@ -26,8 +25,6 @@ const AcceptCodeRegister: React.FC = () => {
     message: string,
     show: boolean,
   }>({ type: "success", message: "", show: false })
-
-  const navigation = useAppNavigate();
 
   const [ post, { isLoading } ] = useSendCodeRegisterMutation();
   const [ postRepeatCode, { isLoading: isLoadingRepeatCode } ] = useSendInfoRegisterMutation();
@@ -53,7 +50,7 @@ const AcceptCodeRegister: React.FC = () => {
 
   const removeId = async () => {
     const _ = await AsyncStorage.removeItem("id");
-    navigation.navigate(SCREEN.AUTH.REGISTER.INDEX);
+    navigation.navigate("Register");
   }
 
   const sendCode = async () => {
@@ -243,7 +240,7 @@ const AcceptCodeRegister: React.FC = () => {
         message={alert.message}
         onClose={() => {
           if(alert.type === "success") {
-            navigation.navigate(SCREEN.AUTH.LOGIN.INDEX);
+            navigation.navigate("Login");
           }
           setAlert({ type: "success", message: "", show: false });
         }}

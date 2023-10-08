@@ -1,7 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { SCREEN } from "../constants/router";
 
 import Container from "../page/container";
 
@@ -26,9 +25,10 @@ import UniversityHome from "../screen/home/university";
 import JobHome from "../screen/home/job";
 // Home - Extracurricular
 import ExtracurricularHome from "../screen/home/extracurricular";
+import { StackParamList } from "./utils";
 
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackParamList>();
 
 const AppRouter: React.FC = () => {
   return (
@@ -37,28 +37,28 @@ const AppRouter: React.FC = () => {
         screenOptions={{
           headerShown: false
         }} 
-        initialRouteName={SCREEN.CHECK_AUTH.INDEX}
+        initialRouteName={"CheckAuth"}
       >
-        <Stack.Screen name={SCREEN.CHECK_AUTH.INDEX} component={CheckAuth} />
+        <Stack.Screen name={"CheckAuth"} component={CheckAuth} />
 
         {/* Container */}
-        <Stack.Screen name={SCREEN.CONTAINER.INDEX} component={Container} />
+        <Stack.Screen name={"Container"} component={Container} />
 
         {/* Container - Home */}
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.INDEX} component={CourseHome} />
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.PRACTICE.INDEX} component={CourseHomePractice} />
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.MAJOR.INDEX} component={CourseHomeMajor} />
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.SKILL.INDEX} component={CourseHomeSkill} />
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.COURSE.LAGUAGE.INDEX} component={CourseHomeLanguage} />
+        <Stack.Screen name={"CourseHome"} component={CourseHome} />
+        <Stack.Screen name={"CourseHomePractice"} component={CourseHomePractice} />
+        <Stack.Screen name={"CourseHomeMajor"} component={CourseHomeMajor} />
+        <Stack.Screen name={"CourseHomeSkill"} component={CourseHomeSkill} />
+        <Stack.Screen name={"CourseHomeLanguage"} component={CourseHomeLanguage} />
 
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.UNIVERSITY.INDEX} component={UniversityHome} />
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.JOB.INDEX} component={JobHome} />
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.EXTRACURRICULAR.INDEX} component={ExtracurricularHome} />
-        <Stack.Screen name={SCREEN.CONTAINER.HOME.MENTOR.INDEX} component={MentorHome} />
+        <Stack.Screen name={"UniversityHome"} component={UniversityHome} />
+        <Stack.Screen name={"JobHome"} component={JobHome} />
+        <Stack.Screen name={"ExtracurricularHome"} component={ExtracurricularHome} />
+        <Stack.Screen name={"MentorHome"} component={MentorHome} />
 
-        <Stack.Screen name={SCREEN.AUTH.REGISTER.INDEX} component={Register} />
-        <Stack.Screen name={SCREEN.AUTH.LOGIN.INDEX} component={Login} />
-        <Stack.Screen name={SCREEN.AUTH.ACCEPT_CODE_REGISTER.INDEX} component={AcceptCodeRegister} />
+        <Stack.Screen name={"Register"} component={Register} />
+        <Stack.Screen name={"Login"} component={Login} />
+        <Stack.Screen name={"AcceptCodeRegister"} component={AcceptCodeRegister} />
       </Stack.Navigator>
     </NavigationContainer>
   )

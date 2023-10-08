@@ -1,5 +1,4 @@
 import { IconSvg } from "../../../../assets/export";
-import { SCREEN } from "../../../../constants/router";
 import { CardHomeProps } from "./card";
 
 export const listCard: CardHomeProps[] = [
@@ -9,7 +8,7 @@ export const listCard: CardHomeProps[] = [
     iconName: "notebook",
     backgroundColor: "#0300ff",
     icon: IconSvg.IconCourse({}),
-    href: SCREEN.CONTAINER.HOME.COURSE.INDEX,
+    href: "CourseHome",
   },
   {
     title: "Đại học",
@@ -17,7 +16,7 @@ export const listCard: CardHomeProps[] = [
     iconName: "school",
     backgroundColor: "#ff0000",
     icon: IconSvg.IconUniversity({}),
-    href: SCREEN.CONTAINER.HOME.UNIVERSITY.INDEX,
+    href: "UniversityHome",
   },
   {
     title: "Việc làm",
@@ -25,7 +24,7 @@ export const listCard: CardHomeProps[] = [
     iconName: "briefcase-search",
     backgroundColor: "#ffa200",
     icon: IconSvg.IconJob({}),
-    href: SCREEN.CONTAINER.HOME.JOB.INDEX,
+    href: "JobHome",
   },
   {
     title: "Ngoại khóa",
@@ -33,7 +32,7 @@ export const listCard: CardHomeProps[] = [
     iconName: "hand-extended",
     backgroundColor: "#00c638",
     icon: IconSvg.IconCamping({}),
-    href: SCREEN.CONTAINER.HOME.EXTRACURRICULAR.INDEX,
+    href: "ExtracurricularHome",
   },
   {
     title: "Mentor",
@@ -41,6 +40,6 @@ export const listCard: CardHomeProps[] = [
     iconName: "hand-extended",
     backgroundColor: "#000000",
     icon: IconSvg.IconMentor({}),
-    href: SCREEN.CONTAINER.HOME.MENTOR.INDEX,
+    href: "MentorHome",
   }
 ]

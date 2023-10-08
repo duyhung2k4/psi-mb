@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { styles } from "./styled";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,24 +9,27 @@ import Posts from "./content/posts";
 import Account from "./content/account";
 
 import { IconSvg } from "../../assets/export";
-import { SCREEN } from "../../constants/router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAppNavigate } from "../../hook/use-app-navigate";
 import { useLoginTokenMutation } from "../../redux/query/api/auth";
+import { ContainerBottomTabParamsList, ContainerProps } from "../../routers/utils";
 
-const Tab = createBottomTabNavigator();
-const Container: React.FC = () => {
-  const navigation = useAppNavigate();
+const Tab = createBottomTabNavigator<ContainerBottomTabParamsList>();
+const Container: React.FC<ContainerProps> = ({ navigation, route }) => {
 
-  const [loginToken, { isLoading }] = useLoginTokenMutation();
+  const [loginToken, { isLoading, isError }] = useLoginTokenMutation();
 
   const checkAuth = async () => {
     const data = await AsyncStorage.getItem("accessToken");
     
     if(data === null) {
-      navigation.navigate(SCREEN.AUTH.LOGIN.INDEX);
+      navigation.navigate("Login");
       return;
     }
+  }
+
+  const gotoLogin = async () => {
+    const _ = await AsyncStorage.removeItem("accessToken");
+    navigation.navigate("Login");
   }
 
   useEffect(() => {
@@ -34,6 +37,8 @@ const Container: React.FC = () => {
     checkAuth();
   }, []);
 
+  if(isError) gotoLogin();
+  
   if(isLoading) {
     return (
       <View
@@ -57,10 +62,10 @@ const Container: React.FC = () => {
           lazy: true,
           tabBarStyle: styles.tabbarStyle,
         }}
-        initialRouteName={SCREEN.CONTAINER.HOME.INDEX}
+        initialRouteName={"Home"}
       >
         <Tab.Screen
-          name={SCREEN.CONTAINER.HOME.INDEX}
+          name={"Home"}
           component={Home}
           options={{
             tabBarIcon: () => IconSvg.IconHome({ height: 30, width: 30 }),
@@ -68,7 +73,7 @@ const Container: React.FC = () => {
           }}
         />
         <Tab.Screen
-          name={SCREEN.CONTAINER.POSTS.INDEX}
+          name={"Posts"}
           component={Posts}
           options={{
             tabBarIcon: () => IconSvg.IconPost({ height: 30, width: 30 }),
@@ -76,7 +81,7 @@ const Container: React.FC = () => {
           }}
         />
         <Tab.Screen
-          name={SCREEN.CONTAINER.LEARN.INDEX}
+          name={"Learn"}
           component={Learn}
           options={{
             tabBarIcon: () => IconSvg.IconStudy({ height: 30, width: 30 }),
@@ -84,7 +89,7 @@ const Container: React.FC = () => {
           }}
         />
         <Tab.Screen
-          name={SCREEN.CONTAINER.ACCOUNT.INDEX}
+          name={"Account"}
           component={Account}
           options={{
             tabBarIcon: () => IconSvg.IconAccount({ height: 30, width: 30 }),

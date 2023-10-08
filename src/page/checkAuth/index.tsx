@@ -1,21 +1,18 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { useAppNavigate } from "../../hook/use-app-navigate";
-import { SCREEN } from "../../constants/router";
+import { CheckAuthProps } from "../../routers/utils";
 
-const CheckAuth: React.FC = () => {
-  const navigation = useAppNavigate();
-
+const CheckAuth: React.FC<CheckAuthProps> = ({ navigation, route }) => {
   const checkAuth = async () => {
     const data = await AsyncStorage.getItem("accessToken");
 
     if (data === null) {
-      navigation.navigate(SCREEN.AUTH.LOGIN.INDEX);
+      navigation.navigate("Login");
       return;
     }
 
-    navigation.navigate(SCREEN.CONTAINER.INDEX);
+    navigation.navigate("Container");
   }
 
   useEffect(() => {

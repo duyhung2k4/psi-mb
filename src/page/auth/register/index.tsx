@@ -5,16 +5,15 @@ import BackgroundAuth from "../background";
 import InputCustom from "../../../components/Input";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ButtonCustom from "../../../components/Button";
+import DividerCustom from "../../../components/Divider";
+import AlertCustom from "../../../components/Alert";
 
 import { View } from "react-native";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { SendInfoRegisterPayload } from "../../../payload/auth.payload";
 import { useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
-import DividerCustom from "../../../components/Divider";
-import { useAppNavigate } from "../../../hook/use-app-navigate";
-import { SCREEN } from "../../../constants/router";
-import AlertCustom from "../../../components/Alert";
 import { TemporaryInfo } from "../../../model/temporaryInfo";
+import { RegisterProps } from "../../../routers/utils";
 
 interface FormRegister {
   username: string
@@ -33,11 +32,9 @@ const ErrorRegsiter = Yub.object().shape({
   repeatPassword: Yub.string().required("Yêu cầu điền đầy đủ"),
 });
 
-const Register: React.FC = () => {
+const Register: React.FC<RegisterProps> = ({ navigation, route }) => {
   const [post, { isLoading }] = useSendInfoRegisterMutation();
   const [alert, setAlert] = useState<boolean>(false);
-
-  const navigation = useAppNavigate();
 
   const initForm: FormRegister = {
     username: "",
@@ -79,7 +76,7 @@ const Register: React.FC = () => {
         }),
       )
 
-      navigation.navigate(SCREEN.AUTH.ACCEPT_CODE_REGISTER.INDEX);
+      navigation.navigate("AcceptCodeRegister");
     } else {
       setAlert(true);
     }
@@ -91,7 +88,7 @@ const Register: React.FC = () => {
 
     const convert = (data as any) as TemporaryInfo;
     if(dayjs(convert.expLocal).isAfter(dayjs())) {
-      navigation.navigate(SCREEN.CHECK_AUTH.INDEX);
+      navigation.navigate("CheckAuth");
     } else {
       await AsyncStorage.removeItem("id");
     }
@@ -157,7 +154,7 @@ const Register: React.FC = () => {
         <ButtonCustom
           title={"Đăng nhập"}
           color={"#00c638"}
-          onPress={() => navigation.navigate(SCREEN.AUTH.LOGIN.INDEX)}
+          onPress={() => navigation.navigate("Login")}
           disabled={isLoading}
         />
       </View>

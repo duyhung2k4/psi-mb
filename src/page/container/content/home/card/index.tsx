@@ -3,8 +3,11 @@ import { Pressable, View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { NameIcon } from "../../../../../components/Icon";
 import { Text } from "@rneui/base";
-import { useAppNavigate } from "../../../../../hook/use-app-navigate";
 import { styles } from "./styled";
+import { ContainerBottomTabParamsList, StackParamList, TypeStackParamList } from "../../../../../routers/utils";
+import { CompositeNavigationProp, NavigationProp, useNavigation } from "@react-navigation/native";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 export interface CardHomeProps {
   iconName: NameIcon
@@ -12,13 +15,15 @@ export interface CardHomeProps {
   detail: string
   backgroundColor: string
   icon: React.ReactNode
-  href: string
+  href: TypeStackParamList
 }
 const CardHome: React.FC<CardHomeProps> = (props) => {
-  const navigate = useAppNavigate();
+  const navigation = useNavigation<NavigationProp<StackParamList, "CourseHome">>();
 
   return (
-    <Pressable onPress={() => navigate.navigate(props.href)}>
+    <Pressable 
+      onPress={() => navigation.navigate(props.href)}
+    >
       <LinearGradient
         colors={[props.backgroundColor, "#707070"]}
         start={{ x: 0, y: 0 }}
