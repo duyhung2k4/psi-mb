@@ -1,5 +1,6 @@
-import { Divider, Text } from "@rneui/base";
 import React from "react";
+
+import { Divider, Text } from "@rneui/base";
 import { StyleProp, View, ViewStyle } from "react-native";
 
 interface DividerCustomProps {

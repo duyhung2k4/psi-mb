@@ -1,9 +1,10 @@
-import { Text } from "@rneui/base";
 import React from "react";
-import { View } from "react-native";
-import ButtonCustom from "../Button";
-import { IconSvg } from "../../assets/export";
 import Modal from "react-native-modal";
+import ButtonCustom from "../Button";
+
+import { Text } from "@rneui/base";
+import { View } from "react-native";
+import { IconSvg } from "../../assets/export";
 import { styles } from "./styled";
 
 interface AlertCustomProps {

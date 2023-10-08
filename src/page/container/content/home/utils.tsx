@@ -8,7 +8,7 @@ export const listCard: CardHomeProps[] = [
     iconName: "notebook",
     backgroundColor: "#0300ff",
     icon: IconSvg.IconCourse({}),
-    href: "CourseHome",
+    screen: "CourseHome",
   },
   {
     title: "Đại học",
@@ -16,7 +16,7 @@ export const listCard: CardHomeProps[] = [
     iconName: "school",
     backgroundColor: "#ff0000",
     icon: IconSvg.IconUniversity({}),
-    href: "UniversityHome",
+    screen: "UniversityHome",
   },
   {
     title: "Việc làm",
@@ -24,7 +24,7 @@ export const listCard: CardHomeProps[] = [
     iconName: "briefcase-search",
     backgroundColor: "#ffa200",
     icon: IconSvg.IconJob({}),
-    href: "JobHome",
+    screen: "JobHome",
   },
   {
     title: "Ngoại khóa",
@@ -32,7 +32,7 @@ export const listCard: CardHomeProps[] = [
     iconName: "hand-extended",
     backgroundColor: "#00c638",
     icon: IconSvg.IconCamping({}),
-    href: "ExtracurricularHome",
+    screen: "ExtracurricularHome",
   },
   {
     title: "Mentor",
@@ -40,6 +40,6 @@ export const listCard: CardHomeProps[] = [
     iconName: "hand-extended",
     backgroundColor: "#000000",
     icon: IconSvg.IconMentor({}),
-    href: "MentorHome",
+    screen: "MentorHome",
   }
 ]

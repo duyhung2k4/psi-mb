@@ -25,7 +25,6 @@ const axiosBaseQuery =
     }
 
     try {
-      console.log(`${baseUrl}/${url}`);
       const result = await axios({
         url: `${baseUrl}/${url}`,
         method,

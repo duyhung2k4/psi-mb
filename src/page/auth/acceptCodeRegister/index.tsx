@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import dayjs from "dayjs";
+import AlertCustom from "../../../components/Alert";
+import ButtonCustom from "../../../components/Button";
+
+
+import { styles } from "./styled";
 import BackgroundAuth from "../background";
 import { Text } from "@rneui/base";
 import { View } from "react-native";
-import ButtonCustom from "../../../components/Button";
+import { useSendCodeRegisterMutation, useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
+import { TemporaryInfo } from "../../../model/temporaryInfo";
+import { AcceptCodeRegisterProps } from "../../../routers/utils";
+
 import {
   CodeField,
   Cursor,
   useClearByFocusCell,
   useBlurOnFulfill,
 } from "react-native-confirmation-code-field";
-import { styles } from "./styled";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import dayjs from "dayjs";
-import { useSendCodeRegisterMutation, useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
-import AlertCustom from "../../../components/Alert";
-import { TemporaryInfo } from "../../../model/temporaryInfo";
-import { AcceptCodeRegisterProps } from "../../../routers/utils";
 
 const AcceptCodeRegister: React.FC<AcceptCodeRegisterProps> = ({ navigation, route }) => {
   const [code, setCode] = useState("");

@@ -7,8 +7,8 @@ import OverlayLoading from "../../../components/OverlayLoading";
 import { listTypeCouse } from "./utils";
 import { View, Dimensions, Pressable } from "react-native";
 import { arrayTowWay } from "../../../utils/array";
-import { CourseHomeProps, StackParamList } from "../../../routers/utils";
-import { RouteProp, useNavigation, useRoute, NavigationProp } from "@react-navigation/native";
+import { StackParamList } from "../../../routers/utils";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 const CourseHome: React.FC = () => {
   const listTowWay: TypeCourseCardProps[][] = arrayTowWay<TypeCourseCardProps>(listTypeCouse);
@@ -16,7 +16,7 @@ const CourseHome: React.FC = () => {
   const navigation = useNavigation<NavigationProp<StackParamList, "CourseHome">>();  
 
   return (
-    <OverlayLoading>
+    <OverlayLoading scroll={true}>
       <OverlayHeader>
         <View
           style={{

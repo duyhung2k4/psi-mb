@@ -1,9 +1,10 @@
 import React from "react";
-import { View } from "react-native";
 import CardHome, { CardHomeProps } from "./card";
+import OverlayHeader from "../../../../components/OverlayHeader";
+
+import { View } from "react-native";
 import { listCard } from "./utils";
 import { styles } from "./styled";
-import OverlayHeader from "../../../../components/OverlayHeader";
 
 const Home: React.FC = () => {
   return (

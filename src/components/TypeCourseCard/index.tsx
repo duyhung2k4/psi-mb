@@ -1,13 +1,19 @@
-import { Text } from "@rneui/base";
 import React from "react";
+
+import { Text } from "@rneui/base";
 import { View } from "react-native";
-import { TypeStackParamList } from "../../routers/utils";
+import { StackParamList } from "../../routers/utils";
 
 export interface TypeCourseCardProps {
   title: string
   icon: React.ReactNode
   color: string
-  screen: TypeStackParamList
+  screen: keyof Pick<
+    StackParamList, 
+      | "CourseHomePractice"
+      | "CourseHomeMajor" 
+      | "CourseHomeLanguage"
+      | "CourseHomeSkill">
 }
 const TypeCourseCard: React.FC<TypeCourseCardProps> = (props) => {
   return (

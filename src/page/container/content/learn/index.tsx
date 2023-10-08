@@ -1,5 +1,5 @@
-import { Text } from "@rneui/base";
 import React from "react";
+import { Text } from "@rneui/base";
 
 const Learn: React.FC = () => {
   return (

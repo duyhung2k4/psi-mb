@@ -11,22 +11,29 @@ export type StackParamList = {
   AcceptCodeRegister: undefined
   Login: undefined
 
+
   // Container
   Container: undefined
-  // Container - Home
-  // Container - Home - Course
+
+  // Course
   CourseHome: undefined
+  // Course - Practice
   CourseHomePractice: undefined
-  CourseHomeMajor: undefined
+  CourseHomePracticeDetail: { id: number }
+  // Course - Major
+  CourseHomeMajor: undefined 
+  // Course - Skill
   CourseHomeSkill: undefined
+  // Course - Language
   CourseHomeLanguage: undefined
-  // Container - Home - University
+
+  // University
   UniversityHome: undefined
-  // Container - Home - Job
+  // Job
   JobHome: undefined
-  // Container - Home - Extracurricular
+  // Extracurricular
   ExtracurricularHome: undefined
-  // Container - Home - Mentor
+  // Menter
   MentorHome: undefined
 }
 export type TypeStackParamList = keyof StackParamList;
@@ -59,22 +66,31 @@ export type AcceptCodeRegisterProps = NativeStackScreenProps<StackParamList, "Ac
 export type LoginProps = NativeStackScreenProps<StackParamList, "Login">
 export type CheckAuthProps = NativeStackScreenProps<StackParamList, "CheckAuth">
 export type RegisterProps = NativeStackScreenProps<StackParamList, "Register">
+
+
 // Container
 export type ContainerProps = NativeStackScreenProps<StackParamList, "Container">
-// Container - Home
-// Container - Home - Course
+
+// Course
 export type CourseHomeProps = NativeStackScreenProps<StackParamList, "CourseHome">
+// Course - Practice
 export type CourseHomePracticeProps = NativeStackScreenProps<StackParamList, "CourseHomePractice">
+export type CourseHomePracticeDetailProps = NativeStackScreenProps<StackParamList, "CourseHomePracticeDetail">
+// Course - Major
 export type CourseHomeMajorProps = NativeStackScreenProps<StackParamList, "CourseHomeMajor">
+// Course - Skil
 export type CourseHomeSkillProps = NativeStackScreenProps<StackParamList, "CourseHomeSkill">
+// Course - Language
 export type CourseHomeLanguageProps = NativeStackScreenProps<StackParamList, "CourseHomeLanguage">
-// Container - University
+
+
+// University
 export type UniversityHomeProps = NativeStackScreenProps<StackParamList, "UniversityHome">
-// Container - Job
+// Job
 export type JobHomeProps = NativeStackScreenProps<StackParamList, "JobHome">
-// Container - Extracurricular
+// Extracurricular
 export type ExtracurricularHomeProps = NativeStackScreenProps<StackParamList, "ExtracurricularHome">
-// Container - Mentor
+// Mentor
 export type MentorHomeProps = NativeStackScreenProps<StackParamList, "MentorHome">
 
 

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -26,6 +27,7 @@ import JobHome from "../screen/home/job";
 // Home - Extracurricular
 import ExtracurricularHome from "../screen/home/extracurricular";
 import { StackParamList } from "./utils";
+import CourseHomePracticeDetail from "../screen/home/course/Practice/Detail";
 
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -47,6 +49,7 @@ const AppRouter: React.FC = () => {
         {/* Container - Home */}
         <Stack.Screen name={"CourseHome"} component={CourseHome} />
         <Stack.Screen name={"CourseHomePractice"} component={CourseHomePractice} />
+        <Stack.Screen name={"CourseHomePracticeDetail"} component={CourseHomePracticeDetail} />
         <Stack.Screen name={"CourseHomeMajor"} component={CourseHomeMajor} />
         <Stack.Screen name={"CourseHomeSkill"} component={CourseHomeSkill} />
         <Stack.Screen name={"CourseHomeLanguage"} component={CourseHomeLanguage} />

@@ -1,5 +1,6 @@
-import { Text } from "@rneui/base";
 import React from "react";
+
+import { Text } from "@rneui/base";
 import { ScrollView, View } from "react-native";
 
 interface OverlayHeaderProps {

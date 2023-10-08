@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 
 interface OverlayLoadingProps {
   children: React.ReactNode
+  scroll?: boolean
 }
 const OverlayLoading: React.FC<OverlayLoadingProps> = (props) => {
   const [show, setShow] = useState<boolean>(false);
@@ -18,12 +19,21 @@ const OverlayLoading: React.FC<OverlayLoadingProps> = (props) => {
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#FFFFFF",
       }}
     >
       {
         show ?
-          props.children :
+          (
+            props.scroll && props.scroll === true ?
+              <ScrollView
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              >{props.children}</ScrollView> :
+              props.children
+          )
+          :
           <ActivityIndicator size="large" />
       }
     </View>

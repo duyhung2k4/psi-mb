@@ -1,5 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { ActivityIndicator, View } from "react-native";
 import { CheckAuthProps } from "../../routers/utils";
 

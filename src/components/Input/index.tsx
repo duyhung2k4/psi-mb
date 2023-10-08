@@ -1,5 +1,5 @@
-import { Input, InputProps } from "@rneui/base";
 import React from "react";
+import { Input, InputProps } from "@rneui/base";
 
 const InputCustom: React.FC<InputProps> = (props) => {
   return (

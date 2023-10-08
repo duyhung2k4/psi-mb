@@ -1,7 +1,8 @@
 import React from "react";
+import LinearGradient from "react-native-linear-gradient";
+
 import { styles } from "./styled";
 import { ScrollView, View } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
 import { Text } from "@rneui/base";
 
 interface BackgroundAuthProps {
