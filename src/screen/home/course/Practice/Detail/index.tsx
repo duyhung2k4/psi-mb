@@ -11,8 +11,12 @@ import { ScrollView, View } from "react-native";
 const CourseHomePracticeDetail: React.FC = () => {
   return (
     <OverlayLoading>
-
-      <View style={{ width: "100%", marginBottom: 70, }}>
+      <View
+        style={{
+          width: "100%",
+          marginBottom: 70,
+        }}
+      >
         <ScrollView
           style={{
             width: "100%",
@@ -20,29 +24,41 @@ const CourseHomePracticeDetail: React.FC = () => {
           }}
         >
 
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((n) =>
-            <View style={{ width: "100%" }} key={n}>
+          <View style={{ width: "100%" }}>
+            <View
+              style={{
+                width: "100%",
+                height: 250,
+                backgroundColor: "gray",
+              }}
+            >
+              {/* Image */}
+            </View>
+
+            <View
+              style={{
+                width: "100%",
+                paddingLeft: 10,
+                paddingRight: 10,
+                marginTop: 20,
+              }}
+            >
               <View
                 style={{
                   width: "100%",
-                  height: 250,
-                  backgroundColor: "gray",
+                  height: "auto",
+                  padding: 10,
+                  minHeight: 80,
+                  borderRadius: 8,
+                  backgroundColor: "#BEBEBE"
                 }}
               >
-                {/* Image */}
-              </View>
-              <View
-                style={{
-                  width: "100%",
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                  marginTop: 20,
-                }}
-              >
-                <Text>CourseHomePracticeDetail</Text>
+                <Text style={{ fontSize: 16, fontWeight: "700" }}>Khóa học lập trình cho người mới bắt đầu</Text>
               </View>
             </View>
-          )}
+
+          </View>
+
         </ScrollView>
       </View>
 
