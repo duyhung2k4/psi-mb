@@ -30,6 +30,8 @@ const OverlayLoading: React.FC<OverlayLoadingProps> = (props) => {
                   width: "100%",
                   height: "100%",
                 }}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
               >{props.children}</ScrollView> :
               props.children
           )
