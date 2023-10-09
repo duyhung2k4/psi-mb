@@ -30,5 +30,21 @@ export const endPoint = {
       method: "POST",
       headers: headers.token,
     })
+  },
+
+  basicQuery: {
+    query: () => ({
+      url: "api/v1/basic-query/query",
+      method: "POST",
+      headers: headers.token,
+    })
+  },
+
+  advanceFilter: {
+    filter: () => ({
+      url: "api/v1/advance-filter/filter",
+      method: "POST",
+      headers: headers.token,
+    })
   }
 }

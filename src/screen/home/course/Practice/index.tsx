@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CourseCard from "../../../../components/CourseCard";
 import OverlayLoading from "../../../../components/OverlayLoading";
 
 import { View } from "react-native";
 import { styles } from "./styled";
+import { useFilterMutation } from "../../../../redux/query/api/advanceFilter";
 
 const CourseHomePractice: React.FC = () => {
+  const [filter] = useFilterMutation();
+  
+  const getCourse = async () => {
+    const rersult = await filter({ modelType: "course" });
+
+    console.log(rersult);
+  }
+
+  useEffect(() => {
+    getCourse();
+  }, []);
+
   return (
     <OverlayLoading scroll >
       <View style={styles.root}>

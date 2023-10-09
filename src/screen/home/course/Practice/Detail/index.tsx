@@ -12,14 +12,6 @@ import { ScrollView, View, RefreshControl } from "react-native";
 
 
 const CourseHomePracticeDetail: React.FC = () => {
-  const [refreshing, setRefreshing] = React.useState(false);
-
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
   return (
     <OverlayLoading>
       <View
@@ -35,9 +27,6 @@ const CourseHomePracticeDetail: React.FC = () => {
           }}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
         >
 
           <View style={{ width: "100%" }}>

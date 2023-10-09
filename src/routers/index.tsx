@@ -37,14 +37,18 @@ const AppRouter: React.FC = () => {
     <NavigationContainer>
       <Stack.Navigator 
         screenOptions={{
-          headerShown: false
+          headerShown: true,
+          title: "",
         }} 
         initialRouteName={"CheckAuth"}
       >
-        <Stack.Screen name={"CheckAuth"} component={CheckAuth} />
+        <Stack.Screen options={{ headerShown: false }} name={"CheckAuth"} component={CheckAuth} />
+        <Stack.Screen options={{ headerShown: false }} name={"Register"} component={Register} />
+        <Stack.Screen options={{ headerShown: false }} name={"Login"} component={Login} />
+        <Stack.Screen options={{ headerShown: false }} name={"AcceptCodeRegister"} component={AcceptCodeRegister} />
 
         {/* Container */}
-        <Stack.Screen name={"Container"} component={Container} />
+        <Stack.Screen options={{ headerShown: false }} name={"Container"} component={Container} />
 
         {/* Container - Home */}
         <Stack.Screen name={"CourseHome"} component={CourseHome} />
@@ -59,9 +63,6 @@ const AppRouter: React.FC = () => {
         <Stack.Screen name={"ExtracurricularHome"} component={ExtracurricularHome} />
         <Stack.Screen name={"MentorHome"} component={MentorHome} />
 
-        <Stack.Screen name={"Register"} component={Register} />
-        <Stack.Screen name={"Login"} component={Login} />
-        <Stack.Screen name={"AcceptCodeRegister"} component={AcceptCodeRegister} />
       </Stack.Navigator>
     </NavigationContainer>
   )
