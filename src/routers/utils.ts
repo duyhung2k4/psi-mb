@@ -19,7 +19,7 @@ export type StackParamList = {
   CourseHome: undefined
   // Course - Practice
   CourseHomePractice: undefined
-  CourseHomePracticeDetail: { id: number }
+  CourseHomePracticeDetail: { courseId: number }
   // Course - Major
   CourseHomeMajor: undefined 
   // Course - Skill

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, View } from "react-native";
+import { ActivityIndicator, ScrollView, View, ScrollViewProps } from "react-native";
 
 interface OverlayLoadingProps {
   children: React.ReactNode
   scroll?: boolean
+  props?: ScrollViewProps
 }
 const OverlayLoading: React.FC<OverlayLoadingProps> = (props) => {
   const [show, setShow] = useState<boolean>(false);
@@ -32,6 +33,7 @@ const OverlayLoading: React.FC<OverlayLoadingProps> = (props) => {
                 }}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
+                {...props.props}
               >{props.children}</ScrollView> :
               props.children
           )

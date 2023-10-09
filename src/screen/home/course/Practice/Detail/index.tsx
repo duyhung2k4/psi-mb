@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import ButtonCustom from "../../../../../components/Button";
 import OverlayLoading from "../../../../../components/OverlayLoading";
 import BoxCenter from "../../../../../components/Box/BoxCenter";
@@ -6,12 +6,59 @@ import BoxTitleValue from "../../../../../components/Box/BoxTitleValue";
 
 import { styles } from "./syled";
 import { Text } from "@rneui/base";
-import { ScrollView, View, RefreshControl } from "react-native";
+import { RefreshControl, ScrollView, View } from "react-native";
+import { CourseHomePracticeDetailProps } from "../../../../../routers/utils";
+import { useFilterQuery } from "../../../../../redux/query/api/advanceFilter";
+import { Subject12CourseModel } from "../../../../../model/subject12Course";
+import Loading from "../../../../../components/Loading";
+import { useAppSelector } from "../../../../../redux/hook";
+import { RootState } from "../../../../../redux/store";
+import { ProfileModel } from "../../../../../model/profile";
 
 
+const CourseHomePracticeDetail: React.FC<CourseHomePracticeDetailProps> = ({ navigation, route }) => {
+  const profile = useAppSelector((state: RootState) => state.auth.profile);
+  
+  const {
+    data: courseFetch,
+    isFetching: loadingCourse,
+    refetch: refetchCourse,
+  } = useFilterQuery({
+    modelType: "subject12Course",
+    conditions: {
+      courseId: route.params.courseId,
+    }
+  });
+  const subject12Course: Subject12CourseModel | undefined = useMemo(() => {
+    if(!courseFetch?.data) return undefined;
+    const subject12Course = ((courseFetch.data as any) as Subject12CourseModel[])[0];
+    return subject12Course;
+  }, [courseFetch]);
+
+  const {
+    data: creatorFetch,
+    isFetching: loadingCreate,
+    refetch: refetchCreator,
+  } = useFilterQuery({
+    modelType: "profile",
+    conditions: { id: subject12Course?.course?.creatorId }
+  });
+  const creator = useMemo(() => {
+    if(!creatorFetch?.data) return undefined;
+    const creator = ((creatorFetch?.data as any) as ProfileModel[])[0];
+    return creator;
+  }, [creatorFetch]);
 
 
-const CourseHomePracticeDetail: React.FC = () => {
+  useEffect(() => {
+    refetchCourse();
+  }, [])
+  useEffect(() => {
+    refetchCreator();
+  }, [subject12Course]);
+
+  if(!subject12Course || !creator) return <Loading/>;
+
   return (
     <OverlayLoading>
       <View
@@ -27,6 +74,7 @@ const CourseHomePracticeDetail: React.FC = () => {
           }}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          refreshControl={<RefreshControl refreshing={loadingCourse || loadingCreate} onRefresh={refetchCourse}/>}
         >
 
           <View style={{ width: "100%" }}>
@@ -53,19 +101,19 @@ const CourseHomePracticeDetail: React.FC = () => {
                   backgroundColor: "#C9C9C9",
                 }}
               >
-                <Text style={{ fontSize: 16, fontWeight: "700" }}>Toán 12</Text>
+                <Text style={{ fontSize: 16, fontWeight: "700" }}>{subject12Course.course?.name}</Text>
               </BoxCenter>
 
               <View style={{ width: "100%", marginTop: 30 }}>
                 <BoxTitleValue
                   type="top"
                   title="Môn học"
-                  value="Toán"
+                  value={subject12Course.subject12?.name}
                 />
                 <BoxTitleValue
                   type="bottom"
                   title="Mục tiêu"
-                  value="8+"
+                  value={subject12Course.targetPoint}
                 />
               </View>
 
@@ -83,7 +131,7 @@ const CourseHomePracticeDetail: React.FC = () => {
                 <BoxTitleValue
                   type="bottom"
                   title="Thời lượng"
-                  value="3 tháng"
+                  value={subject12Course.courseDuration}
                 />
               </View>
 
@@ -91,7 +139,7 @@ const CourseHomePracticeDetail: React.FC = () => {
                 <BoxTitleValue
                   type="simple"
                   title="Người tạo"
-                  value="Nguyễn Văn A"
+                  value={creator.credential?.username}
                 />
               </View>
 
@@ -109,10 +157,7 @@ const CourseHomePracticeDetail: React.FC = () => {
                     textAlign: "auto",
                     minHeight: 150,
                   }}
-                >
-                  Giúp các bạn nắm rõ kiến thức về môn Toán 
-                  Giúp các bạn nắm rõ kiến thức
-                </Text>
+                >{subject12Course.note}</Text>
               </BoxCenter>
 
               <BoxCenter
@@ -124,7 +169,7 @@ const CourseHomePracticeDetail: React.FC = () => {
               >
                 <Text>
                   <Text style={{ fontSize: 18, fontWeight: "700" }}>Giá: </Text>
-                  <Text style={{ fontSize: 18, fontWeight: "600" }}>1000000 </Text>
+                  <Text style={{ fontSize: 18, fontWeight: "600" }}>{subject12Course.course?.price} </Text>
                   <Text style={{ fontSize: 18, fontWeight: "700" }}>VND</Text>
                 </Text>
               </BoxCenter>

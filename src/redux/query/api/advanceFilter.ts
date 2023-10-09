@@ -8,7 +8,7 @@ export const advanceFilterApi = createApi({
   reducerPath: "advanceFilter",
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    filter: builder.mutation<QueryReturnValue<AdvanceFilterPayResponse>, AdvanceFilterPayload>({
+    filter: builder.query<QueryReturnValue<AdvanceFilterPayResponse>, AdvanceFilterPayload>({
       query: (payload) => ({
         ...endPoint.advanceFilter.filter(),
         data: {
@@ -20,4 +20,4 @@ export const advanceFilterApi = createApi({
   })
 });
 
-export const { useFilterMutation } = advanceFilterApi;
+export const { useFilterQuery } = advanceFilterApi;

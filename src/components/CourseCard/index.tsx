@@ -3,29 +3,18 @@ import ButtonCustom from "../Button";
 
 import { Text } from "@rneui/base";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { styles } from "./styled";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { StackParamList } from "../../routers/utils";
-
-
-const TitlePrice: React.FC = () => {
-  return (
-    <View style={styles.titlePrice}>
-      <Text
-        style={{
-          color: "#00c638",
-          fontSize: 16,
-          fontWeight: "700",
-        }}
-      >Giá: </Text>
-      <Text>20000000 <Text style={{ fontWeight: "800" }}>VND</Text></Text>
-    </View>
-  )
-}
+import { styles } from "./styled";
+import TitlePrice from "./TitlePrice";
 
 export interface CourseCardProps {
-  id: number,
   style?: StyleProp<ViewStyle>
+  info: {
+    name: string
+    price: number
+  }
+  onDetail?: () => void
 }
 const CourseCard: React.FC<CourseCardProps> = (props) => {
   const navigation = useNavigation<NavigationProp<StackParamList, "CourseHomePractice">>();
@@ -56,7 +45,7 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
               fontWeight: "800"
             }}
           >
-            Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1 Khóa học 1
+            {props.info.name}
           </Text>
         </View>
 
@@ -65,7 +54,7 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
         <View style={styles.option}>
           <View style={{ flex: 2, marginRight: 10, }}>
             <ButtonCustom
-              title={<TitlePrice/>}
+              title={<TitlePrice price={props.info.price} />}
               color={"#FFFFFF"}
               titleStyle={{
                 color: "#00c638",
@@ -79,7 +68,7 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
           <View style={{ flex: 2, marginLeft: 10, }}>
             <ButtonCustom
               title={"Chi tiết"}
-              onPress={() => navigation.navigate("CourseHomePracticeDetail", { id: props.id })}
+              onPress={props.onDetail}
               buttonStyle={{
                 borderWidth: 2,
                 borderColor: "#00c638",

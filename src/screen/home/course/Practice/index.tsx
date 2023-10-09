@@ -1,28 +1,53 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import CourseCard from "../../../../components/CourseCard";
 import OverlayLoading from "../../../../components/OverlayLoading";
 
-import { View } from "react-native";
+import { RefreshControl, View } from "react-native";
 import { styles } from "./styled";
-import { useFilterMutation } from "../../../../redux/query/api/advanceFilter";
+import { useFilterQuery } from "../../../../redux/query/api/advanceFilter";
+import { CourseHomePracticeProps } from "../../../../routers/utils";
+import { Subject12CourseModel } from "../../../../model/subject12Course";
 
-const CourseHomePractice: React.FC = () => {
-  const [filter] = useFilterMutation();
-  
-  const getCourse = async () => {
-    const rersult = await filter({ modelType: "course" });
+const CourseHomePractice: React.FC<CourseHomePracticeProps> = ({ navigation }) => {
+  const {
+    data: courseFetch,
+    refetch,
+    isFetching,
+  } = useFilterQuery({
+    modelType: "subject12Course",
+  });
 
-    console.log(rersult);
-  }
+  const course: Subject12CourseModel[] = useMemo(() => {
+    return (courseFetch?.data || []) as Subject12CourseModel[];
+  }, [courseFetch]) 
 
   useEffect(() => {
-    getCourse();
+    refetch();
   }, []);
 
   return (
-    <OverlayLoading scroll >
+    <OverlayLoading 
+      scroll
+      props={{
+        refreshControl: <RefreshControl refreshing={isFetching} onRefresh={refetch} />
+      }}
+    >
       <View style={styles.root}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => <CourseCard key={n} id={n} style={{ marginBottom: 30, }} />)}
+        {
+          course.map((c, index: number) => 
+            <CourseCard
+              key={index}
+              info={{
+                name: c.course?.name || "",
+                price: c.course?.price || 0,
+              }}
+              style={{
+                marginBottom: 20,
+              }}
+              onDetail={() => navigation.navigate("CourseHomePracticeDetail", { courseId: c.courseId })}
+            />
+          )
+        }
       </View>
     </OverlayLoading>
   )

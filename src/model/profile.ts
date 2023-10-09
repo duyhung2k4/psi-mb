@@ -5,5 +5,5 @@ export interface ProfileModel extends BaseModel {
   userId: number
   phone: string
 
-  credential?: Credential
+  credential?: CredentialModel
 }
