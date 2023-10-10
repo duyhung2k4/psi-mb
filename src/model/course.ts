@@ -1,11 +1,11 @@
 import { BaseModel } from "./base";
-import { ProfileModel } from "./profile";
+import { ProfileCourseModel } from "./profileCourse";
 
 export enum TYPE_COURSE {
-  TYPE_COURSE_SUBJECT12 = "subject12",
-  TYPE_COURSE_MAJOR = "major",
-  TYPE_COURSE_SKILL = "skill",
-  TYPE_COURSE_LANGUAGE_CENTIFICATE = "languageCentificate",
+  SUBJECT12 = "subject12",
+  MAJOR = "major",
+  SKILL = "skill",
+  LANGUAGE_CENTIFICATE = "languageCentificate",
 }
 
 export interface CourseModel extends BaseModel {
@@ -16,5 +16,5 @@ export interface CourseModel extends BaseModel {
   detail: string
   price: number
 
-  creator?: ProfileModel
+  creator?: ProfileCourseModel
 }

@@ -7,15 +7,16 @@ import { View } from "react-native";
 import { IconSvg } from "../../assets/export";
 import { styles } from "./styled";
 
-interface AlertCustomProps {
+export type TypeAlert = "success" | "warning" | "error"
+export interface AlertCustomProps {
   message: string
   show: boolean
   onClose: () => void
-  type: "success" | "warning" | "error"
+  type: TypeAlert
 }
 const AlertCustom: React.FC<AlertCustomProps> = (props) => {
 
-  const mapType: Record<"success" | "warning" | "error", React.ReactNode> = {
+  const mapType: Record<TypeAlert, React.ReactNode> = {
     success: <IconSvg.IconSuccess height={40} width={40} />,
     warning: <IconSvg.IconWarning height={40} width={40} />,
     error: <IconSvg.IconError height={40} width={40} />

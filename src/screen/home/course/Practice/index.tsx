@@ -27,8 +27,6 @@ const CourseHomePractice: React.FC<CourseHomePracticeProps> = ({ navigation }) =
     refetch();
   }, []);
 
-  console.log(course[0]);
-
   return (
     <OverlayLoading 
       scroll

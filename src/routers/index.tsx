@@ -42,11 +42,15 @@ const AppRouter: React.FC = () => {
         }} 
         initialRouteName={"CheckAuth"}
       >
+        {/* ============================== Authen ============================== */}
         <Stack.Screen options={{ headerShown: false }} name={"CheckAuth"} component={CheckAuth} />
         <Stack.Screen options={{ headerShown: false }} name={"Register"} component={Register} />
         <Stack.Screen options={{ headerShown: false }} name={"Login"} component={Login} />
         <Stack.Screen options={{ headerShown: false }} name={"AcceptCodeRegister"} component={AcceptCodeRegister} />
 
+
+
+        {/* ============================== User ============================== */}
         {/* Container */}
         <Stack.Screen options={{ headerShown: false }} name={"Container"} component={Container} />
 
@@ -62,6 +66,8 @@ const AppRouter: React.FC = () => {
         <Stack.Screen name={"JobHome"} component={JobHome} />
         <Stack.Screen name={"ExtracurricularHome"} component={ExtracurricularHome} />
         <Stack.Screen name={"MentorHome"} component={MentorHome} />
+
+        {/* ============================== Mentor ============================== */}
 
       </Stack.Navigator>
     </NavigationContainer>

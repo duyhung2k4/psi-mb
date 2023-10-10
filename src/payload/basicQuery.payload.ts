@@ -5,16 +5,6 @@ export interface BasicQueryPayload {
   modelType: TypeModelType
 }
 
-export interface BasicQueryPayloadInsert extends BasicQueryPayload {
-  option: "insert"
-}
-export interface BasicQueryPayloadUpdate extends BasicQueryPayload {
-  option: "update"
-}
-export interface BasicQueryPayloadDelete extends BasicQueryPayload {
-  option: "delete"
-}
-
 export interface BasicQueryPayResponse {
   data: Record<string, any> | Record<string, any>[]
 }

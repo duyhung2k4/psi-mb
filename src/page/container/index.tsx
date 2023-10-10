@@ -15,7 +15,6 @@ import { ContainerBottomTabParamsList, ContainerProps } from "../../routers/util
 
 const Tab = createBottomTabNavigator<ContainerBottomTabParamsList>();
 const Container: React.FC<ContainerProps> = ({ navigation, route }) => {
-
   const [loginToken, { isLoading, isError }] = useLoginTokenMutation();
 
   const checkAuth = async () => {

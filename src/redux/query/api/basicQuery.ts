@@ -2,30 +2,30 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "../baseQuery";
 import { endPoint } from "../endpoint";
 import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-import { BasicQueryPayResponse, BasicQueryPayloadDelete, BasicQueryPayloadInsert, BasicQueryPayloadUpdate } from "../../../payload/basicQuery.payload";
+import { BasicQueryPayResponse, BasicQueryPayload } from "../../../payload/basicQuery.payload";
 
 export const basicQueryApi = createApi({
   reducerPath: "basicQuery",
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    insertQuery: builder.mutation<QueryReturnValue<BasicQueryPayResponse>, BasicQueryPayloadInsert>({
+    insertQuery: builder.mutation<QueryReturnValue<BasicQueryPayResponse>, BasicQueryPayload>({
       query: (payload) => ({
         ...endPoint.basicQuery.query(),
-        data: payload
+        data: {...payload, option: "insert"}
       })
     }),
 
-    updateQuery: builder.mutation<QueryReturnValue<BasicQueryPayResponse>, BasicQueryPayloadUpdate>({
+    updateQuery: builder.mutation<QueryReturnValue<BasicQueryPayResponse>, BasicQueryPayload>({
       query: (payload) => ({
         ...endPoint.basicQuery.query(),
-        data: payload
+        data: {...payload, option: "update"}
       })
     }),
 
-    deleteQuery: builder.mutation<QueryReturnValue<BasicQueryPayResponse>, BasicQueryPayloadDelete>({
+    deleteQuery: builder.mutation<QueryReturnValue<BasicQueryPayResponse>, BasicQueryPayload>({
       query: (payload) => ({
         ...endPoint.basicQuery.query(),
-        data: payload
+        data: {...payload, option: "delete"}
       })
     }),
   })

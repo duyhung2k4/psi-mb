@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProfileModel } from "../../model/profile";
-import { authApi, useLoginTokenMutation } from "../query/api/auth";
+import { authApi } from "../query/api/auth";
 
 interface State {
   profile?: ProfileModel,
