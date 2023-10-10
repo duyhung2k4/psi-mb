@@ -13,8 +13,6 @@ import { Subject12CourseModel } from "../../../../../model/subject12Course";
 import Loading from "../../../../../components/Loading";
 import { useAppSelector } from "../../../../../redux/hook";
 import { RootState } from "../../../../../redux/store";
-import { ProfileModel } from "../../../../../model/profile";
-
 
 const CourseHomePracticeDetail: React.FC<CourseHomePracticeDetailProps> = ({ navigation, route }) => {
   const profile = useAppSelector((state: RootState) => state.auth.profile);
@@ -27,7 +25,9 @@ const CourseHomePracticeDetail: React.FC<CourseHomePracticeDetailProps> = ({ nav
     modelType: "subject12Course",
     conditions: {
       courseId: route.params.courseId,
-    }
+    },
+    isPreload: true,
+    stringPreLoad: ["Course", "Course.Creator", "Course.Creator.Credential"]
   });
   const subject12Course: Subject12CourseModel | undefined = useMemo(() => {
     if(!courseFetch?.data) return undefined;
@@ -35,29 +35,11 @@ const CourseHomePracticeDetail: React.FC<CourseHomePracticeDetailProps> = ({ nav
     return subject12Course;
   }, [courseFetch]);
 
-  const {
-    data: creatorFetch,
-    isFetching: loadingCreate,
-    refetch: refetchCreator,
-  } = useFilterQuery({
-    modelType: "profile",
-    conditions: { id: subject12Course?.course?.creatorId }
-  });
-  const creator = useMemo(() => {
-    if(!creatorFetch?.data) return undefined;
-    const creator = ((creatorFetch?.data as any) as ProfileModel[])[0];
-    return creator;
-  }, [creatorFetch]);
-
-
   useEffect(() => {
     refetchCourse();
-  }, [])
-  useEffect(() => {
-    refetchCreator();
-  }, [subject12Course]);
+  }, []);
 
-  if(!subject12Course || !creator) return <Loading/>;
+  if(!subject12Course) return <Loading/>;
 
   return (
     <OverlayLoading>
@@ -74,7 +56,7 @@ const CourseHomePracticeDetail: React.FC<CourseHomePracticeDetailProps> = ({ nav
           }}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          refreshControl={<RefreshControl refreshing={loadingCourse || loadingCreate} onRefresh={refetchCourse}/>}
+          refreshControl={<RefreshControl refreshing={loadingCourse} onRefresh={refetchCourse}/>}
         >
 
           <View style={{ width: "100%" }}>
@@ -139,7 +121,7 @@ const CourseHomePracticeDetail: React.FC<CourseHomePracticeDetailProps> = ({ nav
                 <BoxTitleValue
                   type="simple"
                   title="Người tạo"
-                  value={creator.credential?.username}
+                  value={subject12Course.course?.creator?.credential?.username}
                 />
               </View>
 

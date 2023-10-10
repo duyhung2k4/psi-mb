@@ -15,15 +15,19 @@ const CourseHomePractice: React.FC<CourseHomePracticeProps> = ({ navigation }) =
     isFetching,
   } = useFilterQuery({
     modelType: "subject12Course",
+    isPreload: true,
+    stringPreLoad: ["Course"]
   });
 
   const course: Subject12CourseModel[] = useMemo(() => {
     return (courseFetch?.data || []) as Subject12CourseModel[];
-  }, [courseFetch]) 
+  }, [courseFetch]);
 
   useEffect(() => {
     refetch();
   }, []);
+
+  console.log(course[0]);
 
   return (
     <OverlayLoading 
