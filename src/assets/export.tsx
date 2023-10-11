@@ -24,6 +24,14 @@ import IconError from "./icon/error.svg";
 
 import { IconPropsSvg } from "./icon/props";
 
+// creator course
+import IconCourseCreator from "./icon/course-creator.svg";
+import IconStudentCreator from "./icon/student-creator.svg";
+
+
+// any
+import IconCalendar from "./icon/calendar.svg";
+
 export const IconSvg = {
   IconCourse: (props: IconPropsSvg) => IconCourse({ height: props.height || 70, width: props.width || 70 }),
   IconUniversity: (props: IconPropsSvg) => IconUniversity({ height: props.height || 70, width: props.width || 70 }),
@@ -45,4 +53,11 @@ export const IconSvg = {
   IconWarning: (props: IconPropsSvg) => IconWarning({ height: props.height || 70, width: props.width || 70 }),
   IconError: (props: IconPropsSvg) => IconError({ height: props.height || 70, width: props.width || 70 }),
 
+  // Creator
+  IconCourseCreator: (props: IconPropsSvg) => IconCourseCreator({ height: props.height || 70, width: props.width || 70 }),
+  IconStudentCreator: (props: IconPropsSvg) => IconStudentCreator({ height: props.height || 70, width: props.width || 70 }),
+
+
+  // Any
+  IconCalendar: (props: IconPropsSvg) => IconCalendar({ height: props.height || 70, width: props.width || 70 }),
 }

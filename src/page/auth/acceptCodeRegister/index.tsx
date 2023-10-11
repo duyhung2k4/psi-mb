@@ -11,7 +11,6 @@ import { Text } from "@rneui/base";
 import { View } from "react-native";
 import { useSendCodeRegisterMutation, useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
 import { TemporaryInfo } from "../../../model/temporaryInfo";
-import { AcceptCodeRegisterProps } from "../../../routers/utils";
 
 import {
   CodeField,
@@ -19,8 +18,11 @@ import {
   useClearByFocusCell,
   useBlurOnFulfill,
 } from "react-native-confirmation-code-field";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StackParamList } from "../../../routers/utils";
 
-const AcceptCodeRegister: React.FC<AcceptCodeRegisterProps> = ({ navigation, route }) => {
+type Props = NativeStackScreenProps<StackParamList, "AcceptCodeRegister">;
+const AcceptCodeRegister: React.FC<Props> = ({ navigation, route }) => {
   const [code, setCode] = useState("");
   const [time, setTime] = useState<number | null>(null);
   const [alert, setAlert] = useState<{

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { ActivityIndicator, View } from "react-native";
 import { styles } from "./styled";
+import { View } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from "./content/home";
@@ -9,54 +9,19 @@ import Posts from "./content/posts";
 import Account from "./content/account";
 
 import { IconSvg } from "../../assets/export";
-import { ContainerBottomTabParamsList, ContainerProps } from "../../routers/utils";
+import { ContainerBottomTabParamsList, StackParamList } from "../../routers/utils";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator<ContainerBottomTabParamsList>();
-const Container: React.FC<ContainerProps> = ({ navigation, route }) => {
-  // const [loginToken, { isLoading, isError }] = useLoginTokenMutation();
 
-  // const checkAuth = async () => {
-  //   const data = await AsyncStorage.getItem("accessToken");
-    
-  //   if(data === null) {
-  //     navigation.navigate("Login");
-  //     return;
-  //   }
-  // }
-
-  // const gotoLogin = async () => {
-  //   const _ = await AsyncStorage.removeItem("accessToken");
-  //   navigation.navigate("Login");
-  // }
-
-  // useEffect(() => {
-  //   loginToken(undefined);
-  //   checkAuth();
-  // }, []);
-
-  // if(isError) gotoLogin();
-  
-  // if(isLoading) {
-  //   return (
-  //     <View
-  //       style={{ 
-  //         width: "100%",
-  //         height: "100%",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //       }}
-  //     >
-  //       <ActivityIndicator size="large" />
-  //     </View>
-  //   )
-  // }
+type Props = NativeStackScreenProps<StackParamList, "Container">;
+const Container: React.FC<Props> = ({ navigation, route }) => {
 
   return (
     <View style={styles.root}>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
-          lazy: true,
           tabBarStyle: styles.tabbarStyle,
         }}
         initialRouteName={"Home"}

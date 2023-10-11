@@ -1,14 +1,16 @@
 import React, { useEffect, useMemo } from "react";
-import CourseCard from "../../../../components/CourseCard";
-import OverlayLoading from "../../../../components/OverlayLoading";
 
 import { RefreshControl, View } from "react-native";
 import { styles } from "./styled";
-import { useFilterQuery } from "../../../../redux/query/api/advanceFilter";
-import { CourseHomePracticeProps } from "../../../../routers/utils";
-import { Subject12CourseModel } from "../../../../model/subject12Course";
+import { useFilterQuery } from "../../../../../redux/query/api/advanceFilter";
+import { Subject12CourseModel } from "../../../../../model/subject12Course";
+import OverlayLoading from "../../../../../components/OverlayLoading";
+import CourseCard from "../../../../../components/CourseCard";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StackParamList } from "../../../../../routers/utils";
 
-const CourseHomePractice: React.FC<CourseHomePracticeProps> = ({ navigation }) => {
+type Props = NativeStackScreenProps<StackParamList, "CourseHomePractice">;
+const CourseHomePractice: React.FC<Props> = ({ navigation }) => {
   const {
     data: courseFetch,
     refetch,

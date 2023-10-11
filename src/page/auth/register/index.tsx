@@ -13,7 +13,8 @@ import { useFormik } from "formik";
 import { SendInfoRegisterPayload } from "../../../payload/auth.payload";
 import { useSendInfoRegisterMutation } from "../../../redux/query/api/auth";
 import { TemporaryInfo } from "../../../model/temporaryInfo";
-import { RegisterProps } from "../../../routers/utils";
+import { StackParamList } from "../../../routers/utils";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 interface FormRegister {
   username: string
@@ -32,7 +33,8 @@ const ErrorRegsiter = Yub.object().shape({
   repeatPassword: Yub.string().required("Yêu cầu điền đầy đủ"),
 });
 
-const Register: React.FC<RegisterProps> = ({ navigation, route }) => {
+type Props = NativeStackScreenProps<StackParamList, "Register">;
+const Register: React.FC<Props> = ({ navigation, route }) => {
   const [post, { isLoading }] = useSendInfoRegisterMutation();
   const [alert, setAlert] = useState<boolean>(false);
 

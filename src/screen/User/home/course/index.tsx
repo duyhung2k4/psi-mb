@@ -1,14 +1,14 @@
 import React from "react";
-import DividerCustom from "../../../components/Divider";
-import OverlayHeader from "../../../components/OverlayHeader";
-import TypeCourseCard, { TypeCourseCardProps } from "../../../components/TypeCourseCard";
-import OverlayLoading from "../../../components/OverlayLoading";
 
 import { listTypeCouse } from "./utils";
 import { View, Dimensions, Pressable } from "react-native";
-import { arrayTowWay } from "../../../utils/array";
-import { StackParamList } from "../../../routers/utils";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import TypeCourseCard, { TypeCourseCardProps } from "../../../../components/TypeCourseCard";
+import { arrayTowWay } from "../../../../utils/array";
+import OverlayLoading from "../../../../components/OverlayLoading";
+import OverlayHeader from "../../../../components/OverlayHeader";
+import DividerCustom from "../../../../components/Divider";
+import { StackParamList } from "../../../../routers/utils";
 
 const CourseHome: React.FC = () => {
   const listTowWay: TypeCourseCardProps[][] = arrayTowWay<TypeCourseCardProps>(listTypeCouse);

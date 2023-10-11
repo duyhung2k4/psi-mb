@@ -1,24 +1,26 @@
 import React, { useEffect, useMemo, useState } from "react";
-import ButtonCustom from "../../../../../components/Button";
-import OverlayLoading from "../../../../../components/OverlayLoading";
-import BoxCenter from "../../../../../components/Box/BoxCenter";
-import BoxTitleValue from "../../../../../components/Box/BoxTitleValue";
-import Loading from "../../../../../components/Loading";
-import AlertCustom, { AlertCustomProps } from "../../../../../components/Alert";
 
 import { styles } from "./syled";
 import { Text } from "@rneui/base";
 import { RefreshControl, ScrollView, View } from "react-native";
-import { CourseHomePracticeDetailProps } from "../../../../../routers/utils";
-import { useFilterQuery } from "../../../../../redux/query/api/advanceFilter";
-import { Subject12CourseModel } from "../../../../../model/subject12Course";
-import { useAppSelector } from "../../../../../redux/hook";
-import { RootState } from "../../../../../redux/store";
-import { useDeleteQueryMutation, useInsertQueryMutation } from "../../../../../redux/query/api/basicQuery";
-import { SaveCourseModel } from "../../../../../model/saveCourse";
-import { RegisterCourseModel, STATUS_REGISTER } from "../../../../../model/registerCourse";
+import { useAppSelector } from "../../../../../../redux/hook";
+import AlertCustom, { AlertCustomProps } from "../../../../../../components/Alert";
+import { RootState } from "../../../../../../redux/store";
+import { useDeleteQueryMutation, useInsertQueryMutation } from "../../../../../../redux/query/api/basicQuery";
+import { useFilterQuery } from "../../../../../../redux/query/api/advanceFilter";
+import { Subject12CourseModel } from "../../../../../../model/subject12Course";
+import { SaveCourseModel } from "../../../../../../model/saveCourse";
+import { RegisterCourseModel, STATUS_REGISTER } from "../../../../../../model/registerCourse";
+import Loading from "../../../../../../components/Loading";
+import OverlayLoading from "../../../../../../components/OverlayLoading";
+import BoxCenter from "../../../../../../components/Box/BoxCenter";
+import BoxTitleValue from "../../../../../../components/Box/BoxTitleValue";
+import ButtonCustom from "../../../../../../components/Button";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StackParamList } from "../../../../../../routers/utils";
 
-const CourseHomePracticeDetail: React.FC<CourseHomePracticeDetailProps> = ({ navigation, route }) => {
+type Props = NativeStackScreenProps<StackParamList, "CourseHomePracticeDetail">;
+const CourseHomePracticeDetail: React.FC<Props> = ({ navigation, route }) => {
   const profile = useAppSelector((state: RootState) => state.auth.profile);
 
   
@@ -398,54 +400,54 @@ const CourseHomePracticeDetail: React.FC<CourseHomePracticeDetailProps> = ({ nav
 
 
       <View style={styles.bottom}>
-          <View style={{ flex: 2, marginRight: 5 }}>
-            <ButtonCustom
-              color={"#FFFFFF"}
-              title={saveCourse ? "Đã lưu" : "Lưu khóa học"}
-              loading={loadingSaveCourse || fetchingSaveCourse}
-              disabled={loadingRegisterCourse}
-              loadingProps={{
-                color: "#00c638"
-              }}
-              buttonStyle={{
-                borderWidth: loadingRegisterCourse? 0 : 2,
-                borderColor: "#00c638",
-              }}
-              onPress={() => {
-                if (!saveCourse) {
-                  handlerSaveCourse();
-                } else {
-                  handerDeleteSaveCourse();
-                }
-              }}
-              titleStyle={{
-                color: "#00c638",
-              }}
-            />
-          </View>
-          <View style={{ flex: 2, marginLeft: 5 }}>
-            <ButtonCustom
-              title={
-                registerCourse ?
-                  (registerCourse.status === STATUS_REGISTER.ACCEPTED ? "Đã học" : "Hủy đăng kí")
-                  : "Đăng kí"
+        <View style={{ flex: 2, marginRight: 5 }}>
+          <ButtonCustom
+            color={"#FFFFFF"}
+            title={saveCourse ? "Đã lưu" : "Lưu khóa học"}
+            loading={loadingSaveCourse || fetchingSaveCourse}
+            disabled={loadingRegisterCourse}
+            loadingProps={{
+              color: "#00c638"
+            }}
+            buttonStyle={{
+              borderWidth: loadingRegisterCourse ? 0 : 2,
+              borderColor: "#00c638",
+            }}
+            onPress={() => {
+              if (!saveCourse) {
+                handlerSaveCourse();
+              } else {
+                handerDeleteSaveCourse();
               }
-              loading={loadingRegisterCourse || fetchingRegisterCourse}
-              disabled={loadingSaveCourse}
-              color={registerCourse && registerCourse.status !== STATUS_REGISTER.ACCEPTED ? "red" : "#00c638"}
-              onPress={() => {
-                if (!registerCourse) {
-                  handlerRegisterCourse();
-                  return;
-                }
-                if(registerCourse.status === STATUS_REGISTER.ACCEPTED) {
-                  return;
-                }
-                handlerCancelRegisterCourse();
-              }}
-            />
-          </View>
+            }}
+            titleStyle={{
+              color: "#00c638",
+            }}
+          />
         </View>
+        <View style={{ flex: 2, marginLeft: 5 }}>
+          <ButtonCustom
+            title={
+              registerCourse ?
+                (registerCourse.status === STATUS_REGISTER.ACCEPTED ? "Đã học" : "Hủy đăng kí")
+                : "Đăng kí"
+            }
+            loading={loadingRegisterCourse || fetchingRegisterCourse}
+            disabled={loadingSaveCourse}
+            color={registerCourse && registerCourse.status !== STATUS_REGISTER.ACCEPTED ? "red" : "#00c638"}
+            onPress={() => {
+              if (!registerCourse) {
+                handlerRegisterCourse();
+                return;
+              }
+              if (registerCourse.status === STATUS_REGISTER.ACCEPTED) {
+                return;
+              }
+              handlerCancelRegisterCourse();
+            }}
+          />
+        </View>
+      </View>
 
 
       <AlertCustom

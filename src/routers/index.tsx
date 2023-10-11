@@ -13,21 +13,21 @@ import CheckAuth from "../page/checkAuth";
 
 // Home
 // Home - Course
-import CourseHome from "../screen/home/course";
-import CourseHomePractice from "../screen/home/course/Practice";
-import CourseHomeMajor from "../screen/home/course/Major";
-import CourseHomeSkill from "../screen/home/course/Skill";
-import CourseHomeLanguage from "../screen/home/course/Language";
+import CourseHome from "../screen/User/home/course";
+import CourseHomePractice from "../screen/User/home/course/Practice";
+import CourseHomeMajor from "../screen/User/home/course/Major";
+import CourseHomeSkill from "../screen/User/home/course/Skill";
+import CourseHomeLanguage from "../screen/User/home/course/Language";
 // Home - Mentor
-import MentorHome from "../screen/home/mentor";
+import MentorHome from "../screen/User/home/mentor";
 // Home - University
-import UniversityHome from "../screen/home/university";
+import UniversityHome from "../screen/User/home/university";
 // Home - Job
-import JobHome from "../screen/home/job";
+import JobHome from "../screen/User/home/job";
 // Home - Extracurricular
-import ExtracurricularHome from "../screen/home/extracurricular";
+import ExtracurricularHome from "../screen/User/home/extracurricular";
+import CourseHomePracticeDetail from "../screen/User/home/course/Practice/Detail"
 import { StackParamList } from "./utils";
-import CourseHomePracticeDetail from "../screen/home/course/Practice/Detail"
 import ContainerCreatorCourse from "../page/creatorCourse";
 
 
@@ -69,7 +69,7 @@ const AppRouter: React.FC = () => {
         <Stack.Screen name={"MentorHome"} component={MentorHome} />
 
         {/* ============================== Mentor ============================== */}
-        <Stack.Screen name={"ContainerCreatorCourse"} component={ContainerCreatorCourse} />
+        <Stack.Screen options={{ headerShown: false }} name={"ContainerCreatorCourse"} component={ContainerCreatorCourse} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -11,8 +11,9 @@ import { useFormik } from "formik";
 import { View } from "react-native";
 import { LoginPayload } from "../../../payload/auth.payload";
 import { useLoginMutation } from "../../../redux/query/api/auth";
-import { LoginProps } from "../../../routers/utils";
 import { ROLE_CODE } from "../../../model/role";
+import { StackParamList } from "../../../routers/utils";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 const ErrorLogin = Yub.object().shape({
   username: Yub.string()
@@ -20,7 +21,8 @@ const ErrorLogin = Yub.object().shape({
   password: Yub.string().required("Yêu cầu điền đầy đủ"),
 });
 
-const Login: React.FC<LoginProps> = ({ navigation, route }) => {
+type Props = NativeStackScreenProps<StackParamList, "Login">;
+const Login: React.FC<Props> = ({ navigation, route }) => {
 
   const [alert, setAlert] = useState<boolean>(false);
 

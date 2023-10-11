@@ -1,5 +1,6 @@
-import { IconSvg } from "../../../assets/export"
-import { TypeCourseCardProps } from "../../../components/TypeCourseCard"
+import { IconSvg } from "../../../../assets/export";
+import { TypeCourseCardProps } from "../../../../components/TypeCourseCard";
+
 
 export const listTypeCouse: TypeCourseCardProps[] = [
   {
