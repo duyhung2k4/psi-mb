@@ -31,7 +31,8 @@ const axiosBaseQuery =
         data,
         params,
         headers,
-      })
+      });
+
       return {
         data: {
           data: result.data.data,

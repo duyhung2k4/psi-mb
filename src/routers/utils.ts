@@ -5,13 +5,14 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 
 // Global ParamsList
 export type StackParamList = {
-  // Auth
+  /* ============================== Authen ============================== */
   CheckAuth: undefined
   Register: undefined
   AcceptCodeRegister: undefined
   Login: undefined
 
 
+  /* ============================== User ============================== */
   // Container
   Container: undefined
 
@@ -35,6 +36,11 @@ export type StackParamList = {
   ExtracurricularHome: undefined
   // Menter
   MentorHome: undefined
+
+
+
+  /* ============================== CreatorCourse ============================== */
+  ContainerCreatorCourse: undefined
 }
 export type TypeStackParamList = keyof StackParamList;
 
@@ -61,13 +67,16 @@ export type TypeContainerBottomTabParamsList = keyof ContainerBottomTabParamsLis
 // <===========================Props Screen========================>
 
 // Props Screen Global
-// Auth
+/* ============================== Authen ============================== */
 export type AcceptCodeRegisterProps = NativeStackScreenProps<StackParamList, "AcceptCodeRegister">
 export type LoginProps = NativeStackScreenProps<StackParamList, "Login">
 export type CheckAuthProps = NativeStackScreenProps<StackParamList, "CheckAuth">
 export type RegisterProps = NativeStackScreenProps<StackParamList, "Register">
 
 
+
+
+/* ============================== User ============================== */
 // Container
 export type ContainerProps = NativeStackScreenProps<StackParamList, "Container">
 
@@ -101,3 +110,11 @@ export type ContainerBottomTabHomeProps = BottomTabScreenProps<ContainerBottomTa
 export type ContainerBottomTabPostsProps = BottomTabScreenProps<ContainerBottomTabParamsList, "Posts">
 export type ContainerBottomTabLearnProps = BottomTabScreenProps<ContainerBottomTabParamsList, "Learn">
 export type ContainerBottomTabAccountProps = BottomTabScreenProps<ContainerBottomTabParamsList, "Account">
+
+
+
+
+
+
+/* ============================== Creator course ============================== */
+export type ContainerCreatorCourseProps = NativeStackScreenProps<StackParamList, "ContainerCreatorCourse">

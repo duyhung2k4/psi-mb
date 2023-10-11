@@ -12,6 +12,7 @@ import { View } from "react-native";
 import { LoginPayload } from "../../../payload/auth.payload";
 import { useLoginMutation } from "../../../redux/query/api/auth";
 import { LoginProps } from "../../../routers/utils";
+import { ROLE_CODE } from "../../../model/role";
 
 const ErrorLogin = Yub.object().shape({
   username: Yub.string()
@@ -43,7 +44,19 @@ const Login: React.FC<LoginProps> = ({ navigation, route }) => {
       if (result.data.data === undefined) return;
       const accessToken = result.data.data.accessToken;
       const _ = await AsyncStorage.setItem("accessToken", accessToken);
-      navigation.navigate("Container");
+      
+      const role = result.data.data.profile.credential?.role?.code;
+      switch (role) {
+        case ROLE_CODE.USER:
+          navigation.navigate("Container");
+          break;
+        case ROLE_CODE.CREATOR_COURSE:
+          navigation.navigate("ContainerCreatorCourse");
+          break;
+        default:
+          break;
+      }
+
     } else {
       setAlert(true);
     }

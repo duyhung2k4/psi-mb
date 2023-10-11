@@ -9,49 +9,47 @@ import Posts from "./content/posts";
 import Account from "./content/account";
 
 import { IconSvg } from "../../assets/export";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useLoginTokenMutation } from "../../redux/query/api/auth";
 import { ContainerBottomTabParamsList, ContainerProps } from "../../routers/utils";
 
 const Tab = createBottomTabNavigator<ContainerBottomTabParamsList>();
 const Container: React.FC<ContainerProps> = ({ navigation, route }) => {
-  const [loginToken, { isLoading, isError }] = useLoginTokenMutation();
+  // const [loginToken, { isLoading, isError }] = useLoginTokenMutation();
 
-  const checkAuth = async () => {
-    const data = await AsyncStorage.getItem("accessToken");
+  // const checkAuth = async () => {
+  //   const data = await AsyncStorage.getItem("accessToken");
     
-    if(data === null) {
-      navigation.navigate("Login");
-      return;
-    }
-  }
+  //   if(data === null) {
+  //     navigation.navigate("Login");
+  //     return;
+  //   }
+  // }
 
-  const gotoLogin = async () => {
-    const _ = await AsyncStorage.removeItem("accessToken");
-    navigation.navigate("Login");
-  }
+  // const gotoLogin = async () => {
+  //   const _ = await AsyncStorage.removeItem("accessToken");
+  //   navigation.navigate("Login");
+  // }
 
-  useEffect(() => {
-    loginToken(undefined);
-    checkAuth();
-  }, []);
+  // useEffect(() => {
+  //   loginToken(undefined);
+  //   checkAuth();
+  // }, []);
 
-  if(isError) gotoLogin();
+  // if(isError) gotoLogin();
   
-  if(isLoading) {
-    return (
-      <View
-        style={{ 
-          width: "100%",
-          height: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <ActivityIndicator size="large" />
-      </View>
-    )
-  }
+  // if(isLoading) {
+  //   return (
+  //     <View
+  //       style={{ 
+  //         width: "100%",
+  //         height: "100%",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       <ActivityIndicator size="large" />
+  //     </View>
+  //   )
+  // }
 
   return (
     <View style={styles.root}>

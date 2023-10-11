@@ -20,5 +20,8 @@ export const authSlice = createSlice({
       state.profile = payload.data?.profile;
     });
 
+    builder.addMatcher(authApi.endpoints.login.matchFulfilled, (state, { payload }) => {
+      state.profile = payload.data?.profile;
+    })
   }
 })
