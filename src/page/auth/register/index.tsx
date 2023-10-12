@@ -30,7 +30,7 @@ const ErrorRegsiter = Yub.object().shape({
     .required("Yêu cầu điền đầy đủ"),
   email: Yub.string().email("Email không hợp lệ").required("Yêu cầu điền đầy đủ"),
   password: Yub.string().required("Yêu cầu điền đầy đủ"),
-  repeatPassword: Yub.string().required("Yêu cầu điền đầy đủ"),
+  repeatPassword: Yub.string().equals([Yub.ref("password"), null], "Mật khẩu không trùng khớp").required("Yêu cầu điền đầy đủ"),
 });
 
 type Props = NativeStackScreenProps<StackParamList, "Register">;

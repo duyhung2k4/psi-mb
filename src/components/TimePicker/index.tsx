@@ -16,6 +16,7 @@ const FORMAT_TIME: Record<TYPE_MODE, string> = {
 
 interface TimePickerCustomProps {
   mode?: TYPE_MODE
+  label?: string
 }
 const TimePickerCustom: React.FC<TimePickerCustomProps> = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -40,13 +41,15 @@ const TimePickerCustom: React.FC<TimePickerCustomProps> = (props) => {
         width: "100%",
       }}
     >
-      <Text
-        style={{
-          color: "#909BA4",
-          fontWeight: "bold",
-          fontSize: 16
-        }}
-      >Thời gian</Text>
+      {props.label &&
+        <Text
+          style={{
+            color: "#909BA4",
+            fontWeight: "bold",
+            fontSize: 16
+          }}
+        >{props.label}</Text>
+      }
       <Pressable onPress={showDatePicker}>
         <View
           style={{

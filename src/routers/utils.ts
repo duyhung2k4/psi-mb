@@ -41,6 +41,7 @@ export type StackParamList = {
 
   /* ============================== CreatorCourse ============================== */
   ContainerCreatorCourse: undefined
+  CreaterCourseSubject12: undefined
 }
 export type TypeStackParamList = keyof StackParamList;
 

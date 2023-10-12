@@ -4,3 +4,5 @@ export interface BaseModel {
   updatedAt: string
   deletedAt: string
 }
+
+export type OmitBaseModel = "id" | "createdAt" | "updatedAt" | "deletedAt";

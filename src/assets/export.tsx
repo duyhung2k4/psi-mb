@@ -31,6 +31,7 @@ import IconStudentCreator from "./icon/student-creator.svg";
 
 // any
 import IconCalendar from "./icon/calendar.svg";
+import IconFolderPlus from "./icon/folderPlus.svg";
 
 export const IconSvg = {
   IconCourse: (props: IconPropsSvg) => IconCourse({ height: props.height || 70, width: props.width || 70 }),
@@ -60,4 +61,5 @@ export const IconSvg = {
 
   // Any
   IconCalendar: (props: IconPropsSvg) => IconCalendar({ height: props.height || 70, width: props.width || 70 }),
+  IconFolderPlus: (props: IconPropsSvg) => IconFolderPlus({ height: props.height || 70, width: props.width || 70 }),
 }
