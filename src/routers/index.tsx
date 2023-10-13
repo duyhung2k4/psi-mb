@@ -32,6 +32,7 @@ import { StackParamList } from "./utils";
 
 import ContainerCreatorCourse from "../page/creatorCourse";
 import CreaterCourseSubject12 from "../screen/CreatorCourse/course/Subject12/Creater";
+import UpdateCourseSubject12 from "../screen/CreatorCourse/course/Subject12/Update";
 
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -74,6 +75,7 @@ const AppRouter: React.FC = () => {
         {/* ============================== Mentor ============================== */}
         <Stack.Screen options={{ headerShown: false }} name={"ContainerCreatorCourse"} component={ContainerCreatorCourse} />
         <Stack.Screen name={"CreaterCourseSubject12"} component={CreaterCourseSubject12} />
+        <Stack.Screen name={"UpdateCourseSubject12"} component={UpdateCourseSubject12} />
       </Stack.Navigator>
     </NavigationContainer>
   )
